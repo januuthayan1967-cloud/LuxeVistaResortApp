@@ -5,15 +5,18 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class SecurityUtils {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("d/M/yyyy", Locale.US);
+    private static final DateTimeFormatter[] DATE_FORMATTERS = new DateTimeFormatter[]{
+            DateTimeFormatter.ofPattern("d/M/uuuu"),
+            DateTimeFormatter.ofPattern("uuuu-MM-dd"),
+            DateTimeFormatter.ofPattern("d-M-uuuu")
+    };
 
     public static String generateSalt() {
         SecureRandom random = new SecureRandom();
@@ -46,29 +49,43 @@ public class SecurityUtils {
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public static boolean isCheckOutAfterCheckIn(String checkInStr, String checkOutStr) {
-        try {
-            Date checkIn = DATE_FORMAT.parse(checkInStr);
-            Date checkOut = DATE_FORMAT.parse(checkOutStr);
-            if (checkIn == null || checkOut == null) return false;
-            return checkOut.after(checkIn);
-        } catch (ParseException e) {
-            return false;
+    public static LocalDate parseLocalDate(String dateStr) {
+        if (dateStr == null || dateStr.trim().isEmpty()) return null;
+        String trimmed = dateStr.trim();
+        for (DateTimeFormatter formatter : DATE_FORMATTERS) {
+            try {
+                return LocalDate.parse(trimmed, formatter);
+            } catch (DateTimeParseException ignored) {
+            }
         }
+        return null;
+    }
+
+    public static boolean isCheckOutAfterCheckIn(String checkInStr, String checkOutStr) {
+        LocalDate in = parseLocalDate(checkInStr);
+        LocalDate out = parseLocalDate(checkOutStr);
+        if (in == null || out == null) return false;
+        return out.isAfter(in);
     }
 
     public static boolean isDateNotPast(String dateStr) {
-        try {
-            Date date = DATE_FORMAT.parse(dateStr);
-            if (date == null) return false;
-            Calendar today = Calendar.getInstance();
-            today.set(Calendar.HOUR_OF_DAY, 0);
-            today.set(Calendar.MINUTE, 0);
-            today.set(Calendar.SECOND, 0);
-            today.set(Calendar.MILLISECOND, 0);
-            return !date.before(today.getTime());
-        } catch (ParseException e) {
-            return true; // if parsing varies, do not block
+        LocalDate date = parseLocalDate(dateStr);
+        if (date == null) return false;
+        LocalDate today = LocalDate.now();
+        return !date.isBefore(today);
+    }
+
+    /**
+     * Calculates reservation stay nights using discrete LocalDate calendar differences
+     * via ChronoUnit.DAYS.between(). Handles leap years, month lengths, and avoids DST drift.
+     */
+    public static int calculateStayNights(String checkInStr, String checkOutStr) {
+        LocalDate in = parseLocalDate(checkInStr);
+        LocalDate out = parseLocalDate(checkOutStr);
+        if (in == null || out == null || !out.isAfter(in)) {
+            return 0;
         }
+        long days = ChronoUnit.DAYS.between(in, out);
+        return (int) Math.max(1, days);
     }
 }

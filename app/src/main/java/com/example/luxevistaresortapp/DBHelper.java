@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import java.time.LocalDate;
+import java.util.Locale;
 
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DBHelper";
     public static final String DATABASE_NAME = "luxevista.db";
-    public static final int DATABASE_VERSION = 5; // Incremented for safe schema upgrade
+    public static final int DATABASE_VERSION = 6; // Upgraded for Phase 1 advanced booking & lifecycle metadata
 
     // Singleton instance
     private static DBHelper instance;
@@ -35,7 +37,13 @@ public class DBHelper extends SQLiteOpenHelper {
             "checkIn TEXT, " +
             "checkOut TEXT, " +
             "price TEXT, " +
-            "userEmail TEXT)";
+            "userEmail TEXT, " +
+            "bookingReference TEXT, " +
+            "nights INTEGER, " +
+            "adults INTEGER, " +
+            "children INTEGER, " +
+            "status TEXT DEFAULT 'RESERVED', " +
+            "createdAt TEXT)";
 
     private static final String CREATE_SERVICE_BOOKINGS_TABLE = "CREATE TABLE " + TABLE_SERVICE_BOOKINGS + " (" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -56,6 +64,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    public static synchronized void resetInstanceForTest() {
+        if (instance != null) {
+            instance.close();
+            instance = null;
+        }
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USERS_TABLE);
@@ -66,34 +81,95 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.i(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + " without data loss");
-        
-        // Non-destructive safe migration
-        if (!hasColumn(db, TABLE_USERS, "salt")) {
-            try {
-                db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN salt TEXT");
-            } catch (Exception e) {
-                Log.e(TAG, "Error adding salt column to users", e);
+
+        // Migration to Version 5 (if jumping from v4 or earlier)
+        if (oldVersion < 5) {
+            if (!hasColumn(db, TABLE_USERS, "salt")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN salt TEXT");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding salt column to users", e);
+                }
+            }
+
+            if (!hasColumn(db, TABLE_BOOKINGS, "userEmail")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN userEmail TEXT");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding userEmail column to bookings", e);
+                }
+            }
+
+            if (!hasColumn(db, TABLE_SERVICE_BOOKINGS, "userEmail")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_SERVICE_BOOKINGS + " ADD COLUMN userEmail TEXT");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding userEmail column to service_bookings", e);
+                }
             }
         }
 
-        if (!hasColumn(db, TABLE_BOOKINGS, "userEmail")) {
-            try {
-                db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN userEmail TEXT");
-            } catch (Exception e) {
-                Log.e(TAG, "Error adding userEmail column to bookings", e);
+        // Migration to Version 6 (Phase 1 Advanced Booking Columns)
+        if (oldVersion < 6) {
+            if (!hasColumn(db, TABLE_BOOKINGS, "bookingReference")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN bookingReference TEXT");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding bookingReference column", e);
+                }
             }
-        }
 
-        if (!hasColumn(db, TABLE_SERVICE_BOOKINGS, "userEmail")) {
+            if (!hasColumn(db, TABLE_BOOKINGS, "nights")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN nights INTEGER");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding nights column", e);
+                }
+            }
+
+            if (!hasColumn(db, TABLE_BOOKINGS, "adults")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN adults INTEGER");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding adults column", e);
+                }
+            }
+
+            if (!hasColumn(db, TABLE_BOOKINGS, "children")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN children INTEGER");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding children column", e);
+                }
+            }
+
+            if (!hasColumn(db, TABLE_BOOKINGS, "status")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN status TEXT DEFAULT 'RESERVED'");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding status column", e);
+                }
+            }
+
+            if (!hasColumn(db, TABLE_BOOKINGS, "createdAt")) {
+                try {
+                    db.execSQL("ALTER TABLE " + TABLE_BOOKINGS + " ADD COLUMN createdAt TEXT");
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding createdAt column", e);
+                }
+            }
+
+            // Retrofit existing legacy bookings with reference numbers without altering prices or historical data
             try {
-                db.execSQL("ALTER TABLE " + TABLE_SERVICE_BOOKINGS + " ADD COLUMN userEmail TEXT");
+                db.execSQL("UPDATE " + TABLE_BOOKINGS + " SET bookingReference = 'LVR-LEGACY-' || id WHERE bookingReference IS NULL");
+                db.execSQL("UPDATE " + TABLE_BOOKINGS + " SET status = 'RESERVED' WHERE status IS NULL");
             } catch (Exception e) {
-                Log.e(TAG, "Error adding userEmail column to service_bookings", e);
+                Log.e(TAG, "Error retrofitting legacy booking references", e);
             }
         }
     }
 
-    private boolean hasColumn(SQLiteDatabase db, String tableName, String columnName) {
+    public boolean hasColumn(SQLiteDatabase db, String tableName, String columnName) {
         Cursor cursor = null;
         try {
             cursor = db.rawQuery("PRAGMA table_info(" + tableName + ")", null);
@@ -160,7 +236,6 @@ public class DBHelper extends SQLiteOpenHelper {
                     // Check legacy plaintext password
                     if (password.equals(storedPassword)) {
                         isValid = true;
-                        // Transparently migrate to salted hash
                         migrateUserPasswordToHash(id, password);
                     }
                 }
@@ -196,22 +271,221 @@ public class DBHelper extends SQLiteOpenHelper {
         return authenticateUser(email, password) != null;
     }
 
-    // Add Room Booking with userEmail
-    public boolean addBooking(String roomType, String checkIn, String checkOut, String price, String userEmail) {
+    /**
+     * Atomically creates a room reservation within a database transaction.
+     * Prevents accidental duplicate submissions by the same user.
+     * Generates a persistent, dynamic collision-free reference number using the current calendar year.
+     *
+     * @return newBookingId if successful, -2 if duplicate submission detected, -1 on failure.
+     */
+    public long addBookingAtomic(String roomType, String checkIn, String checkOut, String price,
+                                 String userEmail, int nights, int adults, int children) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("roomType", roomType);
-        values.put("checkIn", checkIn);
-        values.put("checkOut", checkOut);
-        values.put("price", price);
-        values.put("userEmail", userEmail != null ? userEmail.trim().toLowerCase() : "");
+        String normalizedEmail = userEmail != null ? userEmail.trim().toLowerCase() : "";
 
-        long result = db.insert(TABLE_BOOKINGS, null, values);
-        return result != -1;
+        db.beginTransaction();
+        long newBookingId = -1;
+        try {
+            // Check for accidental duplicate submission by the same user for identical room & dates
+            if (hasDuplicateUserBooking(db, normalizedEmail, roomType, checkIn, checkOut, -1)) {
+                Log.w(TAG, "Duplicate submission rejected for user: " + normalizedEmail);
+                return -2; // Collision / duplicate code
+            }
+
+            ContentValues values = new ContentValues();
+            values.put("roomType", roomType);
+            values.put("checkIn", checkIn);
+            values.put("checkOut", checkOut);
+            values.put("price", price);
+            values.put("userEmail", normalizedEmail);
+            values.put("nights", nights);
+            values.put("adults", adults);
+            values.put("children", children);
+            values.put("status", "RESERVED");
+            values.put("createdAt", String.valueOf(System.currentTimeMillis()));
+
+            newBookingId = db.insert(TABLE_BOOKINGS, null, values);
+
+            if (newBookingId != -1) {
+                // Generate dynamic reference number using current calendar year (never hardcoded)
+                int currentYear = LocalDate.now().getYear();
+                String bookingRef = String.format(Locale.US, "LVR-%d-%06d", currentYear, newBookingId);
+
+                ContentValues refUpdate = new ContentValues();
+                refUpdate.put("bookingReference", bookingRef);
+
+                int rowsUpdated = db.update(TABLE_BOOKINGS, refUpdate, "id = ?",
+                        new String[]{String.valueOf(newBookingId)});
+
+                if (rowsUpdated > 0) {
+                    db.setTransactionSuccessful();
+                } else {
+                    Log.e(TAG, "Failed to update booking reference inside transaction. Aborting.");
+                    newBookingId = -1;
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Exception during atomic booking insertion", e);
+            newBookingId = -1;
+        } finally {
+            db.endTransaction();
+        }
+
+        return newBookingId;
+    }
+
+    // Helper: checks accidental duplicate booking by same user, excluding an optional bookingId (for modification)
+    public boolean hasDuplicateUserBooking(SQLiteDatabase db, String userEmail, String roomType,
+                                           String checkIn, String checkOut, long excludeBookingId) {
+        Cursor cursor = null;
+        try {
+            String sql;
+            String[] args;
+            if (excludeBookingId > 0) {
+                sql = "SELECT COUNT(*) FROM " + TABLE_BOOKINGS +
+                        " WHERE id != ? AND LOWER(userEmail) = ? AND roomType = ? AND checkIn = ? AND checkOut = ? AND status != 'CANCELLED'";
+                args = new String[]{String.valueOf(excludeBookingId), userEmail.trim().toLowerCase(), roomType, checkIn, checkOut};
+            } else {
+                sql = "SELECT COUNT(*) FROM " + TABLE_BOOKINGS +
+                        " WHERE LOWER(userEmail) = ? AND roomType = ? AND checkIn = ? AND checkOut = ? AND status != 'CANCELLED'";
+                args = new String[]{userEmail.trim().toLowerCase(), roomType, checkIn, checkOut};
+            }
+            cursor = db.rawQuery(sql, args);
+            if (cursor != null && cursor.moveToFirst()) {
+                return cursor.getInt(0) > 0;
+            }
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    // Backward-compatible overload
+    public boolean addBooking(String roomType, String checkIn, String checkOut, String price, String userEmail) {
+        int nights = SecurityUtils.calculateStayNights(checkIn, checkOut);
+        long id = addBookingAtomic(roomType, checkIn, checkOut, price, userEmail, nights, 1, 0);
+        return id > 0;
     }
 
     public boolean addBooking(String roomType, String checkIn, String checkOut, String price) {
         return addBooking(roomType, checkIn, checkOut, price, "");
+    }
+
+    /**
+     * Cancels a reservation with strict row-level ownership verification.
+     * Prevents cancelling an already cancelled reservation.
+     */
+    public boolean cancelBookingWithOwner(long bookingId, String userEmail) {
+        if (userEmail == null || userEmail.trim().isEmpty()) return false;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("status", "CANCELLED");
+
+        int rows = db.update(TABLE_BOOKINGS, values,
+                "id = ? AND LOWER(userEmail) = ? AND status != 'CANCELLED'",
+                new String[]{String.valueOf(bookingId), userEmail.trim().toLowerCase()});
+
+        return rows > 0;
+    }
+
+    /**
+     * Modifies an active reservation with strict row-level ownership verification.
+     * Excludes current booking ID from duplicate check.
+     * Prevents editing cancelled reservations.
+     */
+    public boolean modifyBookingWithOwner(long bookingId, String userEmail, String roomType,
+                                          String checkIn, String checkOut, String newPrice,
+                                          int nights, int adults, int children) {
+        if (userEmail == null || userEmail.trim().isEmpty()) return false;
+        String normalizedEmail = userEmail.trim().toLowerCase();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            // 1. Verify reservation exists, belongs to user, and is NOT cancelled
+            Cursor cursor = db.rawQuery("SELECT status FROM " + TABLE_BOOKINGS + " WHERE id = ? AND LOWER(userEmail) = ?",
+                    new String[]{String.valueOf(bookingId), normalizedEmail});
+            if (cursor == null || !cursor.moveToFirst()) {
+                if (cursor != null) cursor.close();
+                return false;
+            }
+            String currentStatus = cursor.getString(0);
+            cursor.close();
+
+            if ("CANCELLED".equalsIgnoreCase(currentStatus)) {
+                Log.w(TAG, "Cannot modify a cancelled booking: " + bookingId);
+                return false;
+            }
+
+            // 2. Check for duplicate reservation excluding this current booking ID
+            if (hasDuplicateUserBooking(db, normalizedEmail, roomType, checkIn, checkOut, bookingId)) {
+                Log.w(TAG, "Modification collision: duplicate booking exists for these dates.");
+                return false;
+            }
+
+            // 3. Apply updates
+            ContentValues values = new ContentValues();
+            values.put("roomType", roomType);
+            values.put("checkIn", checkIn);
+            values.put("checkOut", checkOut);
+            values.put("price", newPrice);
+            values.put("nights", nights);
+            values.put("adults", adults);
+            values.put("children", children);
+
+            int rows = db.update(TABLE_BOOKINGS, values, "id = ? AND LOWER(userEmail) = ?",
+                    new String[]{String.valueOf(bookingId), normalizedEmail});
+
+            if (rows > 0) {
+                db.setTransactionSuccessful();
+                return true;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Exception during booking modification", e);
+        } finally {
+            db.endTransaction();
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieves full booking details with row-level ownership verification.
+     */
+    public BookingModel getBookingModelById(long bookingId, String userEmail) {
+        if (userEmail == null || userEmail.trim().isEmpty()) return null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("SELECT id, roomType, checkIn, checkOut, price, userEmail, bookingReference, nights, adults, children, status, createdAt FROM "
+                            + TABLE_BOOKINGS + " WHERE id = ? AND LOWER(userEmail) = ?",
+                    new String[]{String.valueOf(bookingId), userEmail.trim().toLowerCase()});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                return new BookingModel(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getInt(7),
+                        cursor.getInt(8),
+                        cursor.getInt(9),
+                        cursor.getString(10),
+                        cursor.getString(11)
+                );
+            }
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return null;
     }
 
     // Add Service Booking with userEmail
@@ -237,11 +511,11 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         if (userEmail != null && !userEmail.trim().isEmpty()) {
             String normalizedEmail = userEmail.trim().toLowerCase();
-            Cursor cursor = db.rawQuery(
-                    "SELECT id AS _id, roomType, checkIn, checkOut, price, userEmail FROM " + TABLE_BOOKINGS +
+            return db.rawQuery(
+                    "SELECT id AS _id, roomType, checkIn, checkOut, price, userEmail, bookingReference, nights, adults, children, status, createdAt FROM "
+                            + TABLE_BOOKINGS +
                             " WHERE LOWER(userEmail) = ? OR userEmail IS NULL OR userEmail = '' ORDER BY id DESC",
                     new String[]{normalizedEmail});
-            return cursor;
         }
         return getAllBookings();
     }
@@ -249,7 +523,8 @@ public class DBHelper extends SQLiteOpenHelper {
     // Fetch all Room Bookings (aliasing id AS _id for CursorAdapter)
     public Cursor getAllBookings() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT id AS _id, roomType, checkIn, checkOut, price, userEmail FROM " + TABLE_BOOKINGS + " ORDER BY id DESC", null);
+        return db.rawQuery("SELECT id AS _id, roomType, checkIn, checkOut, price, userEmail, bookingReference, nights, adults, children, status, createdAt FROM "
+                + TABLE_BOOKINGS + " ORDER BY id DESC", null);
     }
 
     // Fetch Service Bookings for specific user (aliasing id AS _id for CursorAdapter)
@@ -257,11 +532,10 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         if (userEmail != null && !userEmail.trim().isEmpty()) {
             String normalizedEmail = userEmail.trim().toLowerCase();
-            Cursor cursor = db.rawQuery(
+            return db.rawQuery(
                     "SELECT id AS _id, serviceName, customerName, date, time, userEmail FROM " + TABLE_SERVICE_BOOKINGS +
                             " WHERE LOWER(userEmail) = ? OR userEmail IS NULL OR userEmail = '' ORDER BY id DESC",
                     new String[]{normalizedEmail});
-            return cursor;
         }
         return getAllServiceBookings();
     }

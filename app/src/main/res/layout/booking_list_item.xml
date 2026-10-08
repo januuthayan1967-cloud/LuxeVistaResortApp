@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="8dp"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/roomTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room Type"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/checkInText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check-in"
+        android:textSize="16sp"
+        android:textColor="#444444" />
+
+    <TextView
+        android:id="@+id/checkOutText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check-out"
+        android:textSize="16sp"
+        android:textColor="#444444" />
+
+    <TextView
+        android:id="@+id/priceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textSize="16sp"
+        android:textColor="#444444" />
+</LinearLayout>

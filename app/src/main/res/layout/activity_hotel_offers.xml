@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/hotel_offers_bg"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:id="@+id/offersLogo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/luxevista_logo"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Hotel Offers -->
+    <Button
+        android:id="@+id/offer1Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Discounted Room Packages"
+        android:textStyle="bold"
+        android:background="#FF5722"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/offer2Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Beachfront Suites"
+        android:textStyle="bold"
+        android:background="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/offer3Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="All-Inclusive Packages"
+        android:textStyle="bold"
+        android:background="#2196F3"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="15dp"/>
+
+</LinearLayout>

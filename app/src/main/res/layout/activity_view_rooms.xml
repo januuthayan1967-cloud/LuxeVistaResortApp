@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Ocean View Suite -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ocean_suite"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ocean View Suite"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 25,000 per night"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/bookOceanSuite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book Now"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Deluxe Room -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/deluxe_room"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deluxe Room"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 18,000 per night"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/bookDeluxeRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book Now"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Single Room -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/single_room"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Single Room"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 12,000 per night"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/bookSingleRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book Now"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Family Room -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/family_room"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Family Room"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 30,000 per night"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/bookFamilyRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book Now"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

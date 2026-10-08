@@ -4,37 +4,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/booking_background"
-    android:padding="20dp">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
         <!-- Logo -->
         <ImageView
             android:id="@+id/bookingLogo"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/luxevista_logo"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="16dp"
+            android:contentDescription="LuxeVista Logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Suite Reservation"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select dates for your stay"
+            android:textSize="14sp"
+            android:textColor="#E0E6ED"
+            android:layout_marginBottom="24dp"/>
 
         <!-- Room Type Spinner -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:orientation="horizontal"
             android:background="@drawable/edit_text_bg"
             android:gravity="center_vertical"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp">
+            android:paddingHorizontal="14dp"
+            android:layout_marginBottom="14dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:src="@drawable/ic_room_type"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Room Type"/>
 
             <Spinner
                 android:id="@+id/roomTypeSpinner"
@@ -47,72 +67,79 @@
         <!-- Check-In Date -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:orientation="horizontal"
             android:background="@drawable/edit_text_bg"
             android:gravity="center_vertical"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp">
+            android:paddingHorizontal="14dp"
+            android:layout_marginBottom="14dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:src="@drawable/ic_calendar"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Check-In Calendar"/>
 
             <EditText
                 android:id="@+id/checkInDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Check-In Date"
+                android:hint="Select Check-In Date"
                 android:focusable="false"
                 android:background="@android:color/transparent"
-                android:textColor="#000"/>
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted"
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <!-- Check-Out Date -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:orientation="horizontal"
             android:background="@drawable/edit_text_bg"
             android:gravity="center_vertical"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp">
+            android:paddingHorizontal="14dp"
+            android:layout_marginBottom="14dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:src="@drawable/ic_calendar"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Check-Out Calendar"/>
 
             <EditText
                 android:id="@+id/checkOutDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Check-Out Date"
+                android:hint="Select Check-Out Date"
                 android:focusable="false"
                 android:background="@android:color/transparent"
-                android:textColor="#000"/>
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted"
+                android:textSize="15sp"/>
         </LinearLayout>
 
         <!-- Room Price -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:orientation="horizontal"
             android:background="@drawable/edit_text_bg"
             android:gravity="center_vertical"
-            android:padding="10dp"
-            android:layout_marginBottom="20dp">
+            android:paddingHorizontal="14dp"
+            android:layout_marginBottom="24dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:src="@drawable/ic_price"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Price Tag"/>
 
             <TextView
                 android:id="@+id/roomPrice"
@@ -120,7 +147,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Room Price"
-                android:textColor="#000"
+                android:textColor="@color/resort_gold_accent"
+                android:textStyle="bold"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -128,12 +156,14 @@
         <Button
             android:id="@+id/bookNowButton"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Book Now"
+            android:layout_height="56dp"
+            android:text="Confirm Reservation"
             android:textStyle="bold"
+            android:textSize="16sp"
             android:background="@drawable/primary_button_bg"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="@color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 </ScrollView>

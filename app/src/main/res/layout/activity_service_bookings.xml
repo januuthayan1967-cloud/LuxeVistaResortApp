@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#FAFAFA"
     android:padding="16dp">
+
+    <TextView
+        android:id="@+id/serviceBookingsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="My Service Bookings"
+        android:textColor="#C5A059"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
     <ListView
         android:id="@+id/serviceBookingsListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
-        android:padding="16dp"
-        />
-    <TextView
-        android:id="@+id/serviceNameTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Service Name"
-        android:textSize="16sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
 
     <TextView
-        android:id="@+id/customerNameTextView"
+        android:id="@+id/emptyServiceBookingsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Customer Name"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:textSize="14sp" />
+        android:gravity="center"
+        android:padding="32dp"
+        android:text="No service bookings found."
+        android:textColor="#718096"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
 </LinearLayout>

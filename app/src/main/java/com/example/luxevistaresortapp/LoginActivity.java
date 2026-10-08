@@ -1,7 +1,6 @@
 package com.example.luxevistaresortapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,20 +8,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailField, passwordField;
     private Button loginButton;
     private TextView registerText;
-    private DBHelper dbHelper; // Declare the DBHelper
+    private DBHelper dbHelper;
+    private SessionManager sessionManager;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sessionManager = SessionManager.getInstance(this);
+        // If already logged in, navigate straight to HomeActivity
+        if (sessionManager.isLoggedIn()) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_loginactivity);
 
         // Initialize views
@@ -31,55 +37,42 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         registerText = findViewById(R.id.registerText);
 
-        // Initialize DBHelper
-        dbHelper = new DBHelper(this); // Create an instance of DBHelper
+        dbHelper = DBHelper.getInstance(this);
 
         // Login button action
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailField.getText().toString();
+                String email = emailField.getText().toString().trim();
                 String password = passwordField.getText().toString();
 
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Check credentials in the database
-                    if (isValidUser(email, password)) {
-                        Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                        // Move to HomeActivity (or another activity)
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-                    }
+                // Disable button briefly to prevent double taps
+                loginButton.setEnabled(false);
+
+                UserModel user = dbHelper.authenticateUser(email, password);
+                if (user != null) {
+                    sessionManager.createLoginSession(user.getId(), user.getName(), user.getEmail());
+                    Toast.makeText(LoginActivity.this, "Welcome, " + user.getName() + "!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    loginButton.setEnabled(true);
+                    Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         // Register text action
-        registerText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        registerText.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
-    }
-
-    // Method to check if the entered email and password are valid
-    private boolean isValidUser(String email, String password) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE email = ? AND password = ?", new String[]{email, password});
-
-        // If a user is found with the matching email and password
-        if (cursor != null && cursor.moveToFirst()) {
-            cursor.close();
-            return true;
-        } else {
-            return false;
-        }
     }
 }

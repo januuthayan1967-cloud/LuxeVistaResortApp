@@ -5,23 +5,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/services_background"
-    android:padding="20dp"
+    android:padding="24dp"
     android:gravity="center_horizontal">
 
     <ImageView
         android:id="@+id/servicesLogo"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:src="@drawable/luxevista_logo"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="12dp"
+        android:contentDescription="LuxeVista Logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exclusive Services"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap any service below to book"
+        android:textSize="14sp"
+        android:textColor="#E0E6ED"
+        android:layout_marginBottom="24dp"/>
 
     <ListView
         android:id="@+id/servicesListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#E0B973"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/resort_gold_accent"
         android:dividerHeight="1dp"
-        android:background="@drawable/edit_text_bg"/>
+        android:background="@drawable/card_luxury"
+        android:padding="8dp"
+        android:elevation="4dp"/>
 
 </LinearLayout>
-

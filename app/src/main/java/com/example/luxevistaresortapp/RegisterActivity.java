@@ -1,10 +1,7 @@
 package com.example.luxevistaresortapp;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +14,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText registerName, registerEmail, registerPassword, registerConfirmPassword;
     private Button registerButton;
     private TextView loginText;
-    private DBHelper dbHelper; // Our SQLite helper class
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +29,11 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
         loginText = findViewById(R.id.loginText);
 
-        dbHelper = new DBHelper(this); // Initialize DB helper
+        dbHelper = DBHelper.getInstance(this);
 
         registerButton.setOnClickListener(v -> {
-            String name = registerName.getText().toString();
-            String email = registerEmail.getText().toString();
+            String name = registerName.getText().toString().trim();
+            String email = registerEmail.getText().toString().trim();
             String password = registerPassword.getText().toString();
             String confirmPassword = registerConfirmPassword.getText().toString();
 
@@ -46,20 +43,33 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
+            if (!SecurityUtils.isValidEmail(email)) {
+                Toast.makeText(RegisterActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (password.length() < 6) {
+                Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Check if passwords match
             if (!password.equals(confirmPassword)) {
                 Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            registerButton.setEnabled(false);
+
             // Add user to database
             boolean isInserted = dbHelper.addUser(name, email, password);
             if (isInserted) {
-                Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Registration Successful! Please login.", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
             } else {
-                Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                registerButton.setEnabled(true);
+                Toast.makeText(RegisterActivity.this, "Email may already be registered. Try logging in.", Toast.LENGTH_SHORT).show();
             }
         });
 

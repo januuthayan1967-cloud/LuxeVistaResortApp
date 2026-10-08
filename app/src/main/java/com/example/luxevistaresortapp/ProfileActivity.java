@@ -4,21 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView userName, userEmail;
-    Button viewRoomBookingsButton, viewServiceBookingsButton, logoutButton;
-
-    DBHelper dbHelper;
-    String userEmailValue, userNameValue;
+    private TextView userName, userEmail;
+    private Button viewRoomBookingsButton, viewServiceBookingsButton, logoutButton;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        sessionManager = SessionManager.getInstance(this);
 
         userName = findViewById(R.id.userName);
         userEmail = findViewById(R.id.userEmail);
@@ -26,18 +27,19 @@ public class ProfileActivity extends AppCompatActivity {
         viewServiceBookingsButton = findViewById(R.id.viewServiceBookingsButton);
         logoutButton = findViewById(R.id.logoutButton);
 
-        dbHelper = DBHelper.getInstance(this);
+        // Populate authenticated user details from session
+        String email = sessionManager.getUserEmail();
+        String name = sessionManager.getUserName();
 
-        // Get passed user email from intent
-        userEmailValue = getIntent().getStringExtra("email");
-
-        if (userEmailValue != null) {
-            userNameValue = dbHelper.getUserNameByEmail(userEmailValue);
-            userName.setText("Name: " + userNameValue);
-            userEmail.setText("Email: " + userEmailValue);
+        if (email != null && !email.isEmpty()) {
+            userName.setText("Name: " + name);
+            userEmail.setText("Email: " + email);
         } else {
-            userName.setText("Name: vanojan");
-            userEmail.setText("Email: vanojan10@gmail.com");
+            // Fallback to DBHelper or prompt login
+            DBHelper dbHelper = DBHelper.getInstance(this);
+            String dbName = dbHelper.getUserNameByEmail(email);
+            userName.setText("Name: " + (dbName != null ? dbName : "Valued Guest"));
+            userEmail.setText("Email: " + (email != null && !email.isEmpty() ? email : "guest@luxevista.com"));
         }
 
         viewRoomBookingsButton.setOnClickListener(v -> {
@@ -51,8 +53,10 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         logoutButton.setOnClickListener(v -> {
+            sessionManager.logoutUser();
+            Toast.makeText(ProfileActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });

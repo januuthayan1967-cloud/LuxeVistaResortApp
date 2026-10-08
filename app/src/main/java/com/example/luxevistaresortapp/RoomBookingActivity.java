@@ -21,17 +21,18 @@ public class RoomBookingActivity extends AppCompatActivity {
     private TextView roomPrice;
     private Button bookNowButton;
     private DBHelper dbHelper;
+    private SessionManager sessionManager;
 
-    private String[] roomTypes = {"Ocean View Suite", "Deluxe Room", "Single Room", "Family Room"};
-    private String[] roomPrices = {"25000", "18000", "12000", "30000"};  // Clean numeric values
+    private final String[] roomTypes = {"Ocean View Suite", "Deluxe Room", "Single Room", "Family Room"};
+    private final String[] roomPrices = {"25000", "18000", "12000", "30000"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_booking);
 
-        // Get DBHelper instance (singleton)
         dbHelper = DBHelper.getInstance(this);
+        sessionManager = SessionManager.getInstance(this);
 
         // Initialize views
         roomTypeSpinner = findViewById(R.id.roomTypeSpinner);
@@ -45,7 +46,21 @@ public class RoomBookingActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomTypeSpinner.setAdapter(adapter);
 
-        // Set initial price and handle price change on selection
+        // Pre-select room if passed from ViewRoomsActivity
+        String preSelectedRoom = getIntent().getStringExtra("roomType");
+        int preSelectedPos = 0;
+        if (preSelectedRoom != null) {
+            for (int i = 0; i < roomTypes.length; i++) {
+                if (roomTypes[i].equalsIgnoreCase(preSelectedRoom.trim())) {
+                    preSelectedPos = i;
+                    break;
+                }
+            }
+        }
+        roomTypeSpinner.setSelection(preSelectedPos);
+        roomPrice.setText("Rs. " + roomPrices[preSelectedPos] + " per night");
+
+        // Set price change on selection
         roomTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -62,34 +77,50 @@ public class RoomBookingActivity extends AppCompatActivity {
         checkInDate.setOnClickListener(v -> showDatePickerDialog(checkInDate));
         checkOutDate.setOnClickListener(v -> showDatePickerDialog(checkOutDate));
 
-        // Book Now button action
+        // Book Now button action with validation and anti-duplicate submission
         bookNowButton.setOnClickListener(v -> {
             String roomType = roomTypeSpinner.getSelectedItem().toString();
-            String checkIn = checkInDate.getText().toString();
-            String checkOut = checkOutDate.getText().toString();
-            String price = extractNumericPrice(roomPrice.getText().toString());  // clean numeric price
+            String checkIn = checkInDate.getText().toString().trim();
+            String checkOut = checkOutDate.getText().toString().trim();
+            String price = extractNumericPrice(roomPrice.getText().toString());
 
             if (checkIn.isEmpty() || checkOut.isEmpty()) {
-                Toast.makeText(RoomBookingActivity.this, "Please fill in all details", Toast.LENGTH_SHORT).show();
-            } else {
-                boolean isInserted = dbHelper.addBooking(roomType, checkIn, checkOut, price);
+                Toast.makeText(RoomBookingActivity.this, "Please select both Check-In and Check-Out dates", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if (isInserted) {
-                    Toast.makeText(RoomBookingActivity.this,
-                            "Room Booked!\nType: " + roomType +
-                                    "\nCheck-In: " + checkIn +
-                                    "\nCheck-Out: " + checkOut +
-                                    "\nPrice: Rs. " + price,
-                            Toast.LENGTH_LONG).show();
-                    clearFields();
-                } else {
-                    Toast.makeText(RoomBookingActivity.this, "Room booking failed! Try again.", Toast.LENGTH_SHORT).show();
-                }
+            if (!SecurityUtils.isDateNotPast(checkIn)) {
+                Toast.makeText(RoomBookingActivity.this, "Check-In date cannot be in the past", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!SecurityUtils.isCheckOutAfterCheckIn(checkIn, checkOut)) {
+                Toast.makeText(RoomBookingActivity.this, "Check-Out date must be after Check-In date", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Prevent duplicate taps
+            bookNowButton.setEnabled(false);
+
+            String userEmail = sessionManager.getUserEmail();
+            boolean isInserted = dbHelper.addBooking(roomType, checkIn, checkOut, price, userEmail);
+
+            if (isInserted) {
+                Toast.makeText(RoomBookingActivity.this,
+                        "Reservation Confirmed!\n" + roomType +
+                                "\nCheck-In: " + checkIn +
+                                " | Check-Out: " + checkOut +
+                                "\nTotal: Rs. " + price,
+                        Toast.LENGTH_LONG).show();
+                clearFields();
+                finish();
+            } else {
+                bookNowButton.setEnabled(true);
+                Toast.makeText(RoomBookingActivity.this, "Booking failed. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Date picker dialog
     private void showDatePickerDialog(EditText dateField) {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -104,19 +135,20 @@ public class RoomBookingActivity extends AppCompatActivity {
                 },
                 year, month, day);
 
+        // Prevent selecting dates in the past
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 
-    // Helper to clean numeric price (remove Rs. and text)
     private String extractNumericPrice(String priceText) {
         return priceText.replaceAll("[^0-9]", "");
     }
 
-    // Clear fields after booking
     private void clearFields() {
         checkInDate.setText("");
         checkOutDate.setText("");
         roomTypeSpinner.setSelection(0);
         roomPrice.setText("Rs. " + roomPrices[0] + " per night");
+        bookNowButton.setEnabled(true);
     }
 }

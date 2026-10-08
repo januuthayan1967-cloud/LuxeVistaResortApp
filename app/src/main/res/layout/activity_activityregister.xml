@@ -4,78 +4,107 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    android:padding="30dp">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
 
         <ImageView
             android:id="@+id/registerLogo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:src="@drawable/luxevista_logo"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="16dp"
+            android:contentDescription="LuxeVista Logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join LuxeVista"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create your resort membership"
+            android:textSize="14sp"
+            android:textColor="#E0E6ED"
+            android:layout_marginBottom="24dp"/>
 
         <EditText
             android:id="@+id/registerName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:hint="Full Name"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
+            android:textSize="15sp"
             android:background="@drawable/edit_text_bg"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="14dp"/>
 
         <EditText
             android:id="@+id/registerEmail"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Email"
+            android:layout_height="52dp"
+            android:hint="Email Address"
             android:inputType="textEmailAddress"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
+            android:textSize="15sp"
             android:background="@drawable/edit_text_bg"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="14dp"/>
 
         <EditText
             android:id="@+id/registerPassword"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Password"
+            android:layout_height="52dp"
+            android:hint="Password (min. 6 characters)"
             android:inputType="textPassword"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
+            android:textSize="15sp"
             android:background="@drawable/edit_text_bg"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="14dp"/>
 
         <EditText
             android:id="@+id/registerConfirmPassword"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:hint="Confirm Password"
             android:inputType="textPassword"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
+            android:textSize="15sp"
             android:background="@drawable/edit_text_bg"
-            android:padding="10dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="24dp"/>
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Register"
-            android:background="#F5F5F5"
-            android:textColor="#FFFFFF"
+            android:layout_height="54dp"
+            android:text="Create Account"
+            android:background="@drawable/primary_button_bg"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginBottom="15dp"/>
+            android:elevation="4dp"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/loginText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Already have an account? Login"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"
-            android:textSize="16sp"/>
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:padding="8dp"/>
 
     </LinearLayout>
 </ScrollView>

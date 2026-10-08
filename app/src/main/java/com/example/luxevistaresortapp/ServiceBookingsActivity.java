@@ -2,41 +2,64 @@ package com.example.luxevistaresortapp;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ServiceBookingsActivity extends AppCompatActivity {
 
     private ListView serviceBookingsListView;
+    private TextView emptyServiceBookingsText;
     private DBHelper dbHelper;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_bookings);
 
-        serviceBookingsListView = findViewById(R.id.serviceBookingsListView);  // ListView in your XML layout
-        dbHelper = DBHelper.getInstance(this);  // Initialize DBHelper
+        serviceBookingsListView = findViewById(R.id.serviceBookingsListView);
+        emptyServiceBookingsText = findViewById(R.id.emptyServiceBookingsText);
+        dbHelper = DBHelper.getInstance(this);
 
-        // Fetch all service bookings
-        Cursor cursor = dbHelper.getAllServiceBookings();
+        SessionManager sessionManager = SessionManager.getInstance(this);
+        String userEmail = sessionManager.getUserEmail();
 
-        // Define columns to display in the ListView
-        String[] fromColumns = {"serviceName", "customerName", "date", "time"};
-        int[] toViews = {R.id.serviceNameTextView, R.id.customerNameTextView, R.id.dateTextView, R.id.timeTextView};
+        // Fetch service bookings for logged-in user
+        cursor = dbHelper.getServiceBookingsForUser(userEmail);
 
-        // Use SimpleCursorAdapter to bind data to ListView
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                this,
-                R.layout.activity_booking,  // Custom layout for each item
-                cursor,
-                fromColumns,
-                toViews,
-                0
-        );
+        if (cursor != null && cursor.getCount() > 0) {
+            String[] fromColumns = {"serviceName", "customerName", "date", "time"};
+            int[] toViews = {R.id.serviceNameTextView, R.id.customerNameTextView, R.id.dateTextView, R.id.timeTextView};
 
-        serviceBookingsListView.setAdapter(adapter);  // Set the adapter to the ListView
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                    this,
+                    R.layout.service_booking_list_item,
+                    cursor,
+                    fromColumns,
+                    toViews,
+                    0
+            );
+
+            serviceBookingsListView.setAdapter(adapter);
+            if (emptyServiceBookingsText != null) {
+                emptyServiceBookingsText.setVisibility(View.GONE);
+            }
+        } else {
+            if (emptyServiceBookingsText != null) {
+                emptyServiceBookingsText.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
     }
 }

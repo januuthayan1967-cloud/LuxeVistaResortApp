@@ -4,79 +4,157 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
-    android:padding="20dp">
+    android:background="@color/resort_ivory_bg">
 
     <!-- Header -->
-    <TextView
-        android:text="My Profile"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="#4CAF50"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <!-- User Details -->
     <LinearLayout
         android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:padding="16dp"
-        android:elevation="3dp"
-        android:layout_marginBottom="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#FFFFFF">
+        android:background="@color/resort_navy_primary"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="24dp">
 
         <TextView
-            android:id="@+id/userName"
-            android:text="Name: "
-            android:textSize="18sp"
+            android:text="LUXEVISTA MEMBERSHIP"
+            android:textSize="13sp"
+            android:letterSpacing="0.2"
             android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="8dp"
+            android:textColor="@color/resort_gold_accent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"/>
 
         <TextView
-            android:id="@+id/userEmail"
-            android:text="Email: "
-            android:textSize="16sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/userPhone"
-            android:text="Phone: +94 77 123 4567"
-            android:textSize="16sp"
-            android:textColor="#555555"
+            android:text="Guest Profile"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <!-- Action Buttons -->
-    <Button
-        android:id="@+id/viewBookingsButton"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View My Bookings"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20dp">
 
-    <Button
-        android:id="@+id/viewServiceBookingsButton"
-        android:text="View My Service Bookings"
-        android:backgroundTint="#4CAF50"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:text="Logout"
-        android:backgroundTint="#D32F2F"
-        android:textColor="#FFFFFF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+            <!-- User Details Card -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/card_luxury"
+                android:padding="20dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:src="@drawable/ic_profile"
+                        android:tint="@color/resort_navy_primary"
+                        android:contentDescription="User Avatar"
+                        android:layout_marginEnd="16dp"/>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/userName"
+                            android:text="Name: Guest"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="VIP Resort Member"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/resort_gold_accent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/resort_divider"
+                    android:layout_marginBottom="14dp"/>
+
+                <TextView
+                    android:id="@+id/userEmail"
+                    android:text="Email: guest@luxevista.com"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/userPhone"
+                    android:text="Concierge: +94 77 123 4567"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_muted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- Action Buttons -->
+            <Button
+                android:id="@+id/viewBookingsButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="View Room Reservations"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:background="@drawable/primary_button_bg"
+                android:textColor="@color/white"
+                android:elevation="3dp"
+                android:layout_marginBottom="14dp"/>
+
+            <Button
+                android:id="@+id/viewServiceBookingsButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="View Service Reservations"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:background="@drawable/primary_button_bg"
+                android:textColor="@color/white"
+                android:elevation="3dp"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Sign Out"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:backgroundTint="#C53030"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

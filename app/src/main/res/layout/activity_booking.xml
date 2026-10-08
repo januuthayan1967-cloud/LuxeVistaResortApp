@@ -3,73 +3,88 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:fillViewport="true"
     android:background="@drawable/service_booking">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
         <ImageView
             android:id="@+id/bookingLogo"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/luxevista_logo"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="16dp"
+            android:contentDescription="LuxeVista Logo"/>
 
         <TextView
             android:id="@+id/serviceNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Selected Service"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="20dp"/>
+            android:textColor="@color/white"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reserve your resort experience"
+            android:textSize="14sp"
+            android:textColor="#E0E6ED"
+            android:layout_marginBottom="24dp"/>
 
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:hint="Your Name"
             android:background="@drawable/edit_text_bg"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:layout_marginBottom="15dp"/>
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
+            android:textSize="15sp"
+            android:layout_marginBottom="14dp"/>
 
         <EditText
             android:id="@+id/dateEditText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Select Date"
+            android:layout_height="52dp"
+            android:hint="Select Booking Date"
             android:focusable="false"
             android:background="@drawable/edit_text_bg"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:layout_marginBottom="15dp"/>
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
+            android:textSize="15sp"
+            android:layout_marginBottom="14dp"/>
 
         <EditText
             android:id="@+id/timeEditText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Select Time"
+            android:layout_height="52dp"
+            android:hint="Select Preferred Time"
             android:focusable="false"
             android:background="@drawable/edit_text_bg"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:layout_marginBottom="25dp"/>
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
+            android:textSize="15sp"
+            android:layout_marginBottom="24dp"/>
 
         <Button
             android:id="@+id/confirmButton"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="Confirm Booking"
+            android:layout_height="56dp"
+            android:text="Confirm Service Reservation"
             android:textStyle="bold"
-            android:background="#2196F3"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="15dp"/>
+            android:textSize="16sp"
+            android:background="@drawable/primary_button_bg"
+            android:textColor="@color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 </ScrollView>

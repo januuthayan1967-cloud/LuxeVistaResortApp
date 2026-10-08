@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.content.Intent;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ImageButton navHome, navServices, navAttractions, navProfile;
     private Button roomBookingButton;
+    private TextView welcomeSub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,16 @@ public class HomeActivity extends AppCompatActivity {
         navAttractions = findViewById(R.id.navAttractions);
         navProfile = findViewById(R.id.navProfile);
         roomBookingButton = findViewById(R.id.roomBookingButton);
+        welcomeSub = findViewById(R.id.welcomeSub);
+
+        // Personalized welcome for logged-in user
+        SessionManager sessionManager = SessionManager.getInstance(this);
+        if (welcomeSub != null && sessionManager.isLoggedIn()) {
+            String name = sessionManager.getUserName();
+            if (name != null && !name.isEmpty() && !name.equals("Valued Guest")) {
+                welcomeSub.setText("Welcome back, " + name);
+            }
+        }
 
         // Set actions
         navHome.setOnClickListener(v -> {});

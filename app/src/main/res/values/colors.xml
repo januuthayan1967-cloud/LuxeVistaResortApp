@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Luxury Palette: Navy, Gold & Ivory -->
+    <color name="resort_navy_primary">#0D1B2A</color>
+    <color name="resort_navy_dark">#08101A</color>
+    <color name="resort_navy_surface">#1B263B</color>
+    <color name="resort_navy_light">#2E3E5C</color>
+
+    <!-- Champagne Gold Accents -->
+    <color name="resort_gold_accent">#C5A059</color>
+    <color name="resort_gold_light">#E0B973</color>
+    <color name="resort_gold_dark">#99732B</color>
+
+    <!-- Warm Ivory & Backgrounds -->
+    <color name="resort_ivory_bg">#FDFBF7</color>
+    <color name="resort_card_bg">#FFFFFF</color>
+    <color name="resort_divider">#E2E8F0</color>
+
+    <!-- Text Typography -->
+    <color name="text_primary">#1A2530</color>
+    <color name="text_secondary">#5A6A80</color>
+    <color name="text_muted">#8A9BA8</color>
+    <color name="text_gold">#C5A059</color>
+    <color name="text_white">#FFFFFF</color>
+
+    <!-- Status & Highlights -->
+    <color name="resort_success">#2E7D32</color>
+    <color name="resort_error">#D32F2F</color>
+    <color name="input_field_border">#D1D5DB</color>
 </resources>

@@ -14,14 +14,27 @@
         android:text="My Room Bookings"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="#4CAF50"
+        android:textColor="#C5A059"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
     <ListView
         android:id="@+id/bookingsListView"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
+
+    <TextView
+        android:id="@+id/emptyRoomBookingsText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp" />
+        android:text="No room bookings found yet."
+        android:textSize="16sp"
+        android:textColor="#718096"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone" />
+
 </LinearLayout>

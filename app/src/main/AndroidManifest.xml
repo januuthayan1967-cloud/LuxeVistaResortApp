@@ -20,10 +20,6 @@
             android:name=".ViewBookingsActivity"
             android:exported="false" />
         <activity
-            android:name=".DatabaseHelper"
-            android:exported="false"
-            tools:ignore="MissingClass" />
-        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
@@ -40,10 +36,6 @@
             android:exported="false" />
         <activity
             android:name=".RoomBookingActivity"
-            android:exported="false"
-            tools:ignore="MissingClass" />
-        <activity
-            android:name=".RoomAdapter"
             android:exported="false" />
         <activity
             android:name=".ServicesActivity"

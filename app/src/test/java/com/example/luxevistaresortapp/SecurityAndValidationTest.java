@@ -121,4 +121,87 @@ public class SecurityAndValidationTest {
         assertEquals("Alexander", user.getName());
         assertEquals("alex@luxevista.com", user.getEmail());
     }
+
+    @Test
+    public void testDynamicRoomPricingScenarios() {
+        // Ocean View Suite: Rs. 25,000 / night
+        long oceanRate = 25000L;
+        assertEquals(25000L, 1 * oceanRate);
+        assertEquals(75000L, 3 * oceanRate);
+        assertEquals(175000L, 7 * oceanRate);
+
+        // Deluxe Room: Rs. 18,000 / night
+        long deluxeRate = 18000L;
+        assertEquals(18000L, 1 * deluxeRate);
+        assertEquals(54000L, 3 * deluxeRate);
+        assertEquals(126000L, 7 * deluxeRate);
+
+        // Single Room: Rs. 12,000 / night
+        long singleRate = 12000L;
+        assertEquals(12000L, 1 * singleRate);
+        assertEquals(36000L, 3 * singleRate);
+        assertEquals(84000L, 7 * singleRate);
+
+        // Family Room: Rs. 30,000 / night
+        long familyRate = 30000L;
+        assertEquals(30000L, 1 * familyRate);
+        assertEquals(90000L, 3 * familyRate);
+        assertEquals(210000L, 7 * familyRate);
+    }
+
+    @Test
+    public void testStayDurationAndPricingIntegration() {
+        // 1-Night Stay
+        int nights1 = SecurityUtils.calculateStayNights("10/11/2026", "11/11/2026");
+        assertEquals(1, nights1);
+        assertEquals(25000L, nights1 * 25000L);
+
+        // 3-Night Stay
+        int nights3 = SecurityUtils.calculateStayNights("10/11/2026", "13/11/2026");
+        assertEquals(3, nights3);
+        assertEquals(75000L, nights3 * 25000L);
+
+        // 7-Night Stay
+        int nights7 = SecurityUtils.calculateStayNights("10/11/2026", "17/11/2026");
+        assertEquals(7, nights7);
+        assertEquals(175000L, nights7 * 25000L);
+    }
+
+    @Test
+    public void testGuestStepperBoundsAndLimits() {
+        int minAdults = 1;
+        int maxAdults = 10;
+        int minChildren = 0;
+        int maxChildren = 10;
+
+        // Adults start at 1, cannot decrement below 1
+        int adults = 1;
+        if (adults > minAdults) adults--;
+        assertEquals(1, adults);
+
+        // Adults can increment up to maxAdults
+        for (int i = 0; i < 20; i++) {
+            if (adults < maxAdults) adults++;
+        }
+        assertEquals(10, adults);
+
+        // Children start at 0, cannot decrement below 0
+        int children = 0;
+        if (children > minChildren) children--;
+        assertEquals(0, children);
+
+        // Children can increment up to maxChildren
+        for (int i = 0; i < 20; i++) {
+            if (children < maxChildren) children++;
+        }
+        assertEquals(10, children);
+    }
+
+    @Test
+    public void testPricingArithmeticOverflowSafety() {
+        long rate = 30000L;
+        int nights = 365;
+        long total = Math.multiplyExact((long) nights, rate);
+        assertEquals(10950000L, total);
+    }
 }

@@ -11,43 +11,57 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:padding="24dp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp">
 
-        <!-- Logo -->
+        <!-- Resort Logo -->
         <ImageView
             android:id="@+id/bookingLogo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:src="@drawable/luxevista_logo"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:contentDescription="LuxeVista Logo"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Suite Reservation"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_marginBottom="4dp"/>
+            android:letterSpacing="0.02"
+            android:layout_marginBottom="2dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select dates for your stay"
-            android:textSize="14sp"
+            android:text="Bespoke luxury tailored to your retreat"
+            android:textSize="13sp"
             android:textColor="#E0E6ED"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="20dp"/>
 
-        <!-- Room Type Spinner -->
+        <!-- Section 1 Header: Accommodation & Dates -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. ACCOMMODATION &amp; DATES"
+            android:textColor="@color/resort_gold_accent"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Room Type Spinner Container -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="52dp"
             android:orientation="horizontal"
             android:background="@drawable/edit_text_bg"
             android:gravity="center_vertical"
             android:paddingHorizontal="14dp"
-            android:layout_marginBottom="14dp">
+            android:layout_marginBottom="12dp">
 
             <ImageView
                 android:layout_width="22dp"
@@ -64,15 +78,15 @@
                 android:background="@android:color/transparent"/>
         </LinearLayout>
 
-        <!-- Check-In Date -->
+        <!-- Check-In Date Container -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="52dp"
             android:orientation="horizontal"
             android:background="@drawable/edit_text_bg"
             android:gravity="center_vertical"
             android:paddingHorizontal="14dp"
-            android:layout_marginBottom="14dp">
+            android:layout_marginBottom="12dp">
 
             <ImageView
                 android:layout_width="22dp"
@@ -94,15 +108,15 @@
                 android:textSize="15sp"/>
         </LinearLayout>
 
-        <!-- Check-Out Date -->
+        <!-- Check-Out Date Container -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="52dp"
             android:orientation="horizontal"
             android:background="@drawable/edit_text_bg"
             android:gravity="center_vertical"
             android:paddingHorizontal="14dp"
-            android:layout_marginBottom="14dp">
+            android:layout_marginBottom="20dp">
 
             <ImageView
                 android:layout_width="22dp"
@@ -124,32 +138,336 @@
                 android:textSize="15sp"/>
         </LinearLayout>
 
-        <!-- Room Price -->
+        <!-- Section 2 Header: Guest Occupancy -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2. GUEST OCCUPANCY"
+            android:textColor="@color/resort_gold_accent"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Guests Stepper Card -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:orientation="horizontal"
-            android:background="@drawable/edit_text_bg"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="14dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_luxury_light"
+            android:padding="14dp"
+            android:layout_marginBottom="20dp">
+
+            <!-- Adults Stepper Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_guests"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Adults Icon"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Adults"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ages 13 and above"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+
+                <!-- Counter Controls -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <Button
+                        android:id="@+id/btnAdultsMinus"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:text="-"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/resort_navy_primary"
+                        android:background="@drawable/stepper_btn_bg"
+                        android:padding="0dp"/>
+
+                    <TextView
+                        android:id="@+id/tvAdultsCount"
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/text_primary"/>
+
+                    <Button
+                        android:id="@+id/btnAdultsPlus"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:text="+"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/resort_navy_primary"
+                        android:background="@drawable/stepper_btn_bg"
+                        android:padding="0dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EDE8E1"
+                android:layout_marginVertical="10dp"/>
+
+            <!-- Children Stepper Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_guests"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Children Icon"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Children"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ages 0 to 12"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_secondary"/>
+                </LinearLayout>
+
+                <!-- Counter Controls -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <Button
+                        android:id="@+id/btnChildrenMinus"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:text="-"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/resort_navy_primary"
+                        android:background="@drawable/stepper_btn_bg"
+                        android:padding="0dp"/>
+
+                    <TextView
+                        android:id="@+id/tvChildrenCount"
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/text_primary"/>
+
+                    <Button
+                        android:id="@+id/btnChildrenPlus"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:text="+"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/resort_navy_primary"
+                        android:background="@drawable/stepper_btn_bg"
+                        android:padding="0dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Section 3 Header: Stay Summary & Dynamic Pricing -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3. STAY BREAKDOWN &amp; PRICING"
+            android:textColor="@color/resort_gold_accent"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Premium Stay Breakdown Card -->
+        <LinearLayout
+            android:id="@+id/cardStaySummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_summary_luxury"
+            android:padding="16dp"
             android:layout_marginBottom="24dp">
 
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_price"
-                android:layout_marginEnd="12dp"
-                android:contentDescription="Price Tag"/>
+            <!-- Selected Suite Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Selected Suite"
+                    android:textColor="#C5D0DE"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tvSummaryRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ocean View Suite"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <!-- Nightly Rate Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nightly Rate"
+                    android:textColor="#C5D0DE"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tvSummaryRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 25,000 / night"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <!-- Stay Duration Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Stay Duration"
+                    android:textColor="#C5D0DE"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tvSummaryNights"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select dates"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33C5A059"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Total Subtotal Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Subtotal"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/tvSummarySubtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <!-- Subtitle Prompt / Date Status -->
+            <TextView
+                android:id="@+id/tvDatePrompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select check-in &amp; check-out dates to calculate total"
+                android:textColor="#9EABB8"
+                android:textSize="11sp"/>
+
+            <!-- Hidden/Legacy compatibility view for R.id.roomPrice -->
             <TextView
                 android:id="@+id/roomPrice"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Room Price"
-                android:textColor="@color/resort_gold_accent"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:visibility="gone"
+                android:text="Room Price"/>
         </LinearLayout>
 
         <!-- Book Now Button -->
@@ -163,6 +481,7 @@
             android:background="@drawable/primary_button_bg"
             android:textColor="@color/white"
             android:elevation="4dp"
+            android:letterSpacing="0.02"
             android:layout_marginBottom="16dp"/>
 
     </LinearLayout>

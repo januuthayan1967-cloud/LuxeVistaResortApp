@@ -203,4 +203,42 @@ public class DatabaseMigrationRobolectricTest {
         boolean cancelledMod = dbHelper.modifyBookingWithOwner(bookingId, ownerEmail, "Ocean View Suite", "20/12/2026", "25/12/2026", "125000", 5, 2, 0);
         assertFalse("Must NOT allow modifying a cancelled reservation", cancelledMod);
     }
+
+    @Test
+    public void testAtomicBookingWithCustomGuestsAndSubtotal() {
+        String ownerEmail = "test_step2_guest@luxevista.com";
+        String roomType = "Ocean View Suite";
+        String checkIn = "05/11/2026";
+        String checkOut = "08/11/2026"; // 3 nights
+        int nights = 3;
+        long nightlyRate = 25000L;
+        long subtotal = nights * nightlyRate; // 75,000
+        int adults = 2;
+        int children = 1;
+
+        long bookingId = dbHelper.addBookingAtomic(
+                roomType,
+                checkIn,
+                checkOut,
+                String.valueOf(subtotal),
+                ownerEmail,
+                nights,
+                adults,
+                children
+        );
+
+        assertTrue("Booking insertion with custom guests and subtotal must succeed", bookingId > 0);
+
+        BookingModel model = dbHelper.getBookingModelById(bookingId, ownerEmail);
+        assertNotNull(model);
+        assertEquals("Ocean View Suite", model.getRoomType());
+        assertEquals("05/11/2026", model.getCheckIn());
+        assertEquals("08/11/2026", model.getCheckOut());
+        assertEquals("75000", model.getPrice());
+        assertEquals(3, model.getNights());
+        assertEquals(2, model.getAdults());
+        assertEquals(1, model.getChildren());
+        assertEquals("RESERVED", model.getStatus());
+        assertFalse(model.isCancelled());
+    }
 }

@@ -1,40 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:orientation="vertical"
+    android:background="@drawable/home_background">
 
-    <TextView
-        android:id="@+id/bookingsHeader"
-        android:layout_width="wrap_content"
+    <!-- Top App Bar / Luxury Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My Room Bookings"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#C5A059"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp"
+        android:background="#D90D1B2A">
 
+        <ImageView
+            android:id="@+id/btnBackHistory"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_back_arrow"
+            android:contentDescription="Back"
+            android:layout_marginEnd="12dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bookingsHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Reservations"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/resort_gold_accent"
+                android:letterSpacing="0.02"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manage your bespoke suite retreats"
+                android:textSize="12sp"
+                android:textColor="#E0E6ED"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Empty State View -->
+    <LinearLayout
+        android:id="@+id/emptyStateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/luxevista_logo"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Resort Logo"/>
+
+        <TextView
+            android:id="@+id/emptyRoomBookingsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Reservations Found"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You haven't made any reservations on this device yet. Explore our bespoke suites and reserve your retreat."
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnEmptyBookNow"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Book a Suite Now"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/primary_button_bg"
+            android:paddingHorizontal="24dp"/>
+    </LinearLayout>
+
+    <!-- Bookings List -->
     <ListView
         android:id="@+id/bookingsListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:divider="@android:color/transparent"
-        android:dividerHeight="8dp" />
-
-    <TextView
-        android:id="@+id/emptyRoomBookingsText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No room bookings found yet."
-        android:textSize="16sp"
-        android:textColor="#718096"
-        android:gravity="center"
-        android:padding="32dp"
-        android:visibility="gone" />
+        android:dividerHeight="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"/>
 
 </LinearLayout>

@@ -25,6 +25,7 @@
             android:contentDescription="LuxeVista Logo"/>
 
         <TextView
+            android:id="@+id/tvBookingHeaderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Suite Reservation"
@@ -35,6 +36,7 @@
             android:layout_marginBottom="2dp"/>
 
         <TextView
+            android:id="@+id/tvBookingHeaderSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bespoke luxury tailored to your retreat"

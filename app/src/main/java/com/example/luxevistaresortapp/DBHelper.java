@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -518,6 +520,40 @@ public class DBHelper extends SQLiteOpenHelper {
                     new String[]{normalizedEmail});
         }
         return getAllBookings();
+    }
+
+    /**
+     * Retrieves typed list of BookingModel objects for the user, safely managing cursor lifecycle.
+     */
+    public List<BookingModel> getBookingListForUser(String userEmail) {
+        List<BookingModel> list = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            cursor = getBookingsForUser(userEmail);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    long id = cursor.getLong(0);
+                    String roomType = cursor.getString(1);
+                    String checkIn = cursor.getString(2);
+                    String checkOut = cursor.getString(3);
+                    String price = cursor.getString(4);
+                    String email = cursor.getString(5);
+                    String ref = cursor.getString(6);
+                    int nights = cursor.getInt(7);
+                    int adults = cursor.getInt(8);
+                    int children = cursor.getInt(9);
+                    String status = cursor.getString(10);
+                    String createdAt = cursor.getString(11);
+
+                    list.add(new BookingModel(id, roomType, checkIn, checkOut, price, email, ref, nights, adults, children, status, createdAt));
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return list;
     }
 
     // Fetch all Room Bookings (aliasing id AS _id for CursorAdapter)

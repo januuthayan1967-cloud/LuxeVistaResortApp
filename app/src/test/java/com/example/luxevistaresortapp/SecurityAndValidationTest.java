@@ -241,4 +241,49 @@ public class SecurityAndValidationTest {
         String text = BookingSuccessActivity.generateShareableText(null);
         assertEquals("", text);
     }
+
+    @Test
+    public void testPriceRecalculationOnDateModification() {
+        // Original: 2 nights at Ocean View Suite (25,000/night)
+        String originalIn = "10/11/2026";
+        String originalOut = "12/11/2026";
+        long nightlyRate = 25000L;
+
+        int originalNights = SecurityUtils.calculateStayNights(originalIn, originalOut);
+        assertEquals(2, originalNights);
+        long originalTotal = originalNights * nightlyRate;
+        assertEquals(50000L, originalTotal);
+
+        // Modified: Guest extends checkout to 15/11/2026 (5 nights)
+        String modifiedOut = "15/11/2026";
+        int modifiedNights = SecurityUtils.calculateStayNights(originalIn, modifiedOut);
+        assertEquals(5, modifiedNights);
+        long modifiedTotal = modifiedNights * nightlyRate;
+        assertEquals(125000L, modifiedTotal);
+
+        // Guest changes room category to Deluxe Room (18,000/night) with new dates
+        long deluxeRate = 18000L;
+        String newCheckIn = "01/12/2026";
+        String newCheckOut = "08/12/2026";
+        int deluxeNights = SecurityUtils.calculateStayNights(newCheckIn, newCheckOut);
+        assertEquals(7, deluxeNights);
+        long deluxeTotal = deluxeNights * deluxeRate;
+        assertEquals(126000L, deluxeTotal);
+    }
+
+    @Test
+    public void testLegacyAndFormattedPriceHandling() {
+        // Clean numeric
+        String raw1 = "125000";
+        assertEquals(125000L, BookingSuccessActivity.parseNumericPrice(raw1));
+
+        // Formatted with prefix
+        String raw2 = "Rs. 125,000";
+        assertEquals(125000L, BookingSuccessActivity.parseNumericPrice(raw2));
+
+        // Empty / null fallback
+        assertEquals(0L, BookingSuccessActivity.parseNumericPrice(""));
+        assertEquals(0L, BookingSuccessActivity.parseNumericPrice(null));
+        assertEquals(0L, BookingSuccessActivity.parseNumericPrice("Contact Desk"));
+    }
 }

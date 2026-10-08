@@ -284,4 +284,154 @@ public class DatabaseMigrationRobolectricTest {
         BookingModel emptyUser = dbHelper.getBookingModelById(bookingId, "   ");
         assertNull("Empty user email must return null", emptyUser);
     }
+
+    @Test
+    public void testBookingHistoryRetrievalAndIsolation() {
+        String userA = "alice@luxevista.com";
+        String userB = "bob@luxevista.com";
+
+        // User A has 2 bookings
+        long idA1 = dbHelper.addBookingAtomic("Ocean View Suite", "01/10/2026", "05/10/2026", "100000", userA, 4, 2, 0);
+        long idA2 = dbHelper.addBookingAtomic("Deluxe Room", "10/10/2026", "12/10/2026", "36000", userA, 2, 1, 0);
+        assertTrue(idA1 > 0);
+        assertTrue(idA2 > 0);
+
+        // User B has 1 booking
+        long idB1 = dbHelper.addBookingAtomic("Single Room", "15/10/2026", "17/10/2026", "24000", userB, 2, 1, 0);
+        assertTrue(idB1 > 0);
+
+        // Fetch bookings for User A
+        java.util.List<BookingModel> listA = dbHelper.getBookingListForUser(userA);
+        assertNotNull(listA);
+        assertEquals(2, listA.size());
+        // Ordered by id DESC
+        assertEquals(idA2, listA.get(0).getId());
+        assertEquals(idA1, listA.get(1).getId());
+
+        // Fetch bookings for User B
+        java.util.List<BookingModel> listB = dbHelper.getBookingListForUser(userB);
+        assertNotNull(listB);
+        assertEquals(1, listB.size());
+        assertEquals(idB1, listB.get(0).getId());
+
+        // Non-existent user has empty list
+        java.util.List<BookingModel> listEmpty = dbHelper.getBookingListForUser("nobody@luxevista.com");
+        assertNotNull(listEmpty);
+        assertTrue(listEmpty.isEmpty());
+    }
+
+    @Test
+    public void testOriginalReferenceAndTimestampPreservedOnModification() {
+        String owner = "charlie@luxevista.com";
+        long bookingId = dbHelper.addBookingAtomic("Single Room", "01/11/2026", "03/11/2026", "24000", owner, 2, 1, 0);
+        assertTrue(bookingId > 0);
+
+        BookingModel original = dbHelper.getBookingModelById(bookingId, owner);
+        assertNotNull(original);
+        String originalRef = original.getBookingReference();
+        String originalCreatedAt = original.getCreatedAt();
+        assertNotNull(originalRef);
+        assertNotNull(originalCreatedAt);
+
+        // Check total count before modification
+        assertEquals(1, dbHelper.getBookingListForUser(owner).size());
+
+        // Modify booking details
+        boolean modified = dbHelper.modifyBookingWithOwner(
+                bookingId,
+                owner,
+                "Ocean View Suite",
+                "02/11/2026",
+                "06/11/2026",
+                "100000",
+                4,
+                2,
+                1
+        );
+        assertTrue("Modification must succeed", modified);
+
+        // Verify count remains exactly 1 (no duplicate record inserted)
+        assertEquals(1, dbHelper.getBookingListForUser(owner).size());
+
+        BookingModel updated = dbHelper.getBookingModelById(bookingId, owner);
+        assertNotNull(updated);
+        assertEquals(originalRef, updated.getBookingReference());
+        assertEquals(originalCreatedAt, updated.getCreatedAt());
+        assertEquals("Ocean View Suite", updated.getRoomType());
+        assertEquals("02/11/2026", updated.getCheckIn());
+        assertEquals("06/11/2026", updated.getCheckOut());
+        assertEquals("100000", updated.getPrice());
+        assertEquals(4, updated.getNights());
+        assertEquals(2, updated.getAdults());
+        assertEquals(1, updated.getChildren());
+    }
+
+    @Test
+    public void testDuplicateCollisionDetectionDuringModification() {
+        String owner = "dana@luxevista.com";
+        // Booking 1: Single Room, 01/12/2026 to 05/12/2026
+        long id1 = dbHelper.addBookingAtomic("Single Room", "01/12/2026", "05/12/2026", "48000", owner, 4, 1, 0);
+        assertTrue(id1 > 0);
+
+        // Booking 2: Deluxe Room, 10/12/2026 to 15/12/2026
+        long id2 = dbHelper.addBookingAtomic("Deluxe Room", "10/12/2026", "15/12/2026", "90000", owner, 5, 2, 0);
+        assertTrue(id2 > 0);
+
+        // Attempting to modify Booking 2 to match Booking 1's room & dates must fail (duplicate detected)
+        boolean collisionMod = dbHelper.modifyBookingWithOwner(
+                id2,
+                owner,
+                "Single Room",
+                "01/12/2026",
+                "05/12/2026",
+                "48000",
+                4,
+                1,
+                0
+        );
+        assertFalse("Modifying a booking into a conflicting duplicate must be rejected", collisionMod);
+
+        // Modifying Booking 2 to new non-colliding dates must succeed
+        boolean safeMod = dbHelper.modifyBookingWithOwner(
+                id2,
+                owner,
+                "Deluxe Room",
+                "11/12/2026",
+                "16/12/2026",
+                "90000",
+                5,
+                2,
+                0
+        );
+        assertTrue("Modifying to non-colliding dates must succeed", safeMod);
+    }
+
+    @Test
+    public void testLegacyBookingCompatibilityInListRetrieval() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues legacy = new ContentValues();
+        legacy.put("roomType", "Vintage Penthouse");
+        legacy.put("checkIn", "05/05/2024");
+        legacy.put("checkOut", "10/05/2024");
+        legacy.put("price", "Rs. 75,000");
+        legacy.put("userEmail", "legacy_user@luxevista.com");
+        // Leave nights, adults, children null / 0
+        long legacyId = db.insert(DBHelper.TABLE_BOOKINGS, null, legacy);
+        assertTrue(legacyId > 0);
+
+        java.util.List<BookingModel> list = dbHelper.getBookingListForUser("legacy_user@luxevista.com");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+
+        BookingModel item = list.get(0);
+        assertEquals(legacyId, item.getId());
+        assertEquals("Vintage Penthouse", item.getRoomType());
+        assertEquals("Rs. 75,000", item.getPrice());
+        assertEquals("05/05/2024", item.getCheckIn());
+        assertEquals("10/05/2024", item.getCheckOut());
+        // Verify missing guest/night data is safely 0 without exceptions
+        assertEquals(0, item.getNights());
+        assertEquals(0, item.getAdults());
+        assertEquals(0, item.getChildren());
+    }
 }

@@ -7,56 +7,168 @@
     android:padding="16dp"
     android:layout_marginHorizontal="12dp"
     android:layout_marginVertical="6dp"
-    android:background="@drawable/item_background"
+    android:background="@drawable/card_luxury_light"
     android:elevation="2dp">
 
+    <!-- Top Row: Reference Badge & Status Pill -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tvItemReference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/voucher_ref_badge"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="LVR-2026-000001"
+            android:textColor="@color/resort_gold_accent"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:letterSpacing="0.04"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvItemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/status_badge_reserved"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="RESERVED"
+            android:textColor="@color/resort_success"
+            android:textStyle="bold"
+            android:textSize="11sp"/>
+    </LinearLayout>
+
+    <!-- Room Type & Total Subtotal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="6dp">
 
         <TextView
             android:id="@+id/roomTypeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Room Type"
+            android:text="Ocean View Suite"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/priceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
+            android:text="Rs. 125,000"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/resort_gold_accent" />
     </LinearLayout>
 
+    <!-- Check-In & Check-Out Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp">
 
         <TextView
             android:id="@+id/checkInText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Check-in"
-            android:textSize="14sp"
+            android:text="Check-In: 10/10/2026"
+            android:textSize="13sp"
             android:textColor="@color/text_secondary" />
 
         <TextView
             android:id="@+id/checkOutText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Check-out"
-            android:textSize="14sp"
+            android:text="Check-Out: 15/10/2026"
+            android:textSize="13sp"
             android:textColor="@color/text_secondary" />
+    </LinearLayout>
+
+    <!-- Stay Duration & Guests -->
+    <TextView
+        android:id="@+id/tvItemDurationGuests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="5 Nights • 2 Adults, 1 Child"
+        android:textSize="12sp"
+        android:textColor="@color/text_muted"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EDE8E1"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Action Buttons Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end|center_vertical">
+
+        <!-- Modify Button -->
+        <Button
+            android:id="@+id/btnItemModify"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Modify"
+            android:textColor="@color/resort_navy_primary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:background="@drawable/button_modify_outline"
+            android:paddingHorizontal="14dp"
+            android:minWidth="0dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/btnItemCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Cancel"
+            android:textColor="@color/resort_error"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:background="@drawable/button_danger_outline"
+            android:paddingHorizontal="14dp"
+            android:minWidth="0dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Voucher / View Button -->
+        <Button
+            android:id="@+id/btnItemVoucher"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Voucher"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:background="@drawable/primary_button_bg"
+            android:paddingHorizontal="14dp"
+            android:minWidth="0dp"/>
     </LinearLayout>
 
 </LinearLayout>

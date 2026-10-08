@@ -178,7 +178,7 @@ public class BookingSuccessActivity extends AppCompatActivity {
         navigateToHome();
     }
 
-    private static long parseNumericPrice(String priceText) {
+    public static long parseNumericPrice(String priceText) {
         if (priceText == null) return 0L;
         String digits = priceText.replaceAll("[^0-9]", "");
         if (digits.isEmpty()) return 0L;

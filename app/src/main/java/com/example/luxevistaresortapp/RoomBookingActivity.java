@@ -22,6 +22,11 @@ import java.util.Map;
 
 public class RoomBookingActivity extends AppCompatActivity {
 
+    public static final String EXTRA_EDIT_BOOKING_ID = "editBookingId";
+    private long editBookingId = -1;
+    private BookingModel originalBookingToEdit;
+    private TextView tvBookingHeaderTitle, tvBookingHeaderSubtitle;
+
     private Spinner roomTypeSpinner;
     private EditText checkInDate, checkOutDate;
     private TextView roomPrice; // Retained for backward compatibility
@@ -74,11 +79,16 @@ public class RoomBookingActivity extends AppCompatActivity {
         setupGuestSteppers();
         setupBookingSubmission();
 
+        checkAndApplyEditMode();
+
         // Initial live pricing calculation
         updatePricingBreakdown();
     }
 
     private void initViews() {
+        tvBookingHeaderTitle = findViewById(R.id.tvBookingHeaderTitle);
+        tvBookingHeaderSubtitle = findViewById(R.id.tvBookingHeaderSubtitle);
+
         roomTypeSpinner = findViewById(R.id.roomTypeSpinner);
         checkInDate = findViewById(R.id.checkInDate);
         checkOutDate = findViewById(R.id.checkOutDate);
@@ -98,6 +108,54 @@ public class RoomBookingActivity extends AppCompatActivity {
         tvSummaryNights = findViewById(R.id.tvSummaryNights);
         tvSummarySubtotal = findViewById(R.id.tvSummarySubtotal);
         tvDatePrompt = findViewById(R.id.tvDatePrompt);
+    }
+
+    private void checkAndApplyEditMode() {
+        editBookingId = getIntent().getLongExtra(EXTRA_EDIT_BOOKING_ID, -1);
+        if (editBookingId > 0) {
+            String currentUserEmail = sessionManager.getUserEmail();
+            originalBookingToEdit = dbHelper.getBookingModelById(editBookingId, currentUserEmail);
+
+            if (originalBookingToEdit == null) {
+                Toast.makeText(this, "Reservation not found or unauthorized access.", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            if (originalBookingToEdit.isCancelled()) {
+                Toast.makeText(this, "Cannot modify a cancelled reservation.", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            // Apply Edit Mode UI styling
+            if (tvBookingHeaderTitle != null) {
+                tvBookingHeaderTitle.setText("Modify Reservation");
+            }
+            if (tvBookingHeaderSubtitle != null) {
+                tvBookingHeaderSubtitle.setText("Updating " + originalBookingToEdit.getBookingReference());
+            }
+            bookNowButton.setText("Save Changes");
+
+            // Pre-populate room spinner
+            for (int i = 0; i < roomTypes.length; i++) {
+                if (roomTypes[i].equalsIgnoreCase(originalBookingToEdit.getRoomType().trim())) {
+                    roomTypeSpinner.setSelection(i);
+                    break;
+                }
+            }
+
+            // Pre-populate dates
+            checkInDate.setText(originalBookingToEdit.getCheckIn());
+            checkOutDate.setText(originalBookingToEdit.getCheckOut());
+
+            // Pre-populate guest counts
+            adultsCount = originalBookingToEdit.getAdults() > 0 ? originalBookingToEdit.getAdults() : 1;
+            childrenCount = Math.max(0, originalBookingToEdit.getChildren());
+            tvAdultsCount.setText(String.valueOf(adultsCount));
+            tvChildrenCount.setText(String.valueOf(childrenCount));
+            updateStepperButtonStates();
+        }
     }
 
     private void setupRoomSpinner() {
@@ -306,9 +364,17 @@ public class RoomBookingActivity extends AppCompatActivity {
                 return;
             }
 
-            if (!SecurityUtils.isDateNotPast(checkIn)) {
-                Toast.makeText(this, "Check-In date cannot be in the past", Toast.LENGTH_SHORT).show();
-                return;
+            if (editBookingId > 0) {
+                boolean checkInUnchanged = originalBookingToEdit != null && checkIn.equals(originalBookingToEdit.getCheckIn());
+                if (!checkInUnchanged && !SecurityUtils.isDateNotPast(checkIn)) {
+                    Toast.makeText(this, "Check-In date cannot be in the past", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } else {
+                if (!SecurityUtils.isDateNotPast(checkIn)) {
+                    Toast.makeText(this, "Check-In date cannot be in the past", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             if (!SecurityUtils.isCheckOutAfterCheckIn(checkIn, checkOut)) {
@@ -326,6 +392,35 @@ public class RoomBookingActivity extends AppCompatActivity {
 
             String userEmail = sessionManager.getUserEmail();
             String priceToPersist = String.valueOf(calculatedSubtotal);
+
+            if (editBookingId > 0) {
+                // Modification flow: update existing reservation
+                boolean modified = dbHelper.modifyBookingWithOwner(
+                        editBookingId,
+                        userEmail,
+                        roomType,
+                        checkIn,
+                        checkOut,
+                        priceToPersist,
+                        calculatedNights,
+                        adultsCount,
+                        childrenCount
+                );
+
+                if (modified) {
+                    Toast.makeText(RoomBookingActivity.this, "Reservation updated successfully!", Toast.LENGTH_SHORT).show();
+                    Intent successIntent = new Intent(RoomBookingActivity.this, BookingSuccessActivity.class);
+                    successIntent.putExtra(BookingSuccessActivity.EXTRA_BOOKING_ID, editBookingId);
+                    startActivity(successIntent);
+                    finish();
+                } else {
+                    bookNowButton.setEnabled(true);
+                    Toast.makeText(RoomBookingActivity.this,
+                            "Failed to update reservation. Please ensure dates do not overlap another booking or contact reception.",
+                            Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
 
             // Execute atomic transaction from Step 1
             long bookingId = dbHelper.addBookingAtomic(

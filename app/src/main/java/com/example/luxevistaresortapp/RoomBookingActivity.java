@@ -2,6 +2,7 @@ package com.example.luxevistaresortapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -339,17 +340,9 @@ public class RoomBookingActivity extends AppCompatActivity {
             );
 
             if (bookingId > 0) {
-                int currentYear = LocalDate.now().getYear();
-                String bookingRef = String.format(Locale.US, "LVR-%d-%06d", currentYear, bookingId);
-
-                Toast.makeText(RoomBookingActivity.this,
-                        "Reservation Confirmed!\n" +
-                                "Reference: " + bookingRef + "\n" +
-                                roomType + " (" + calculatedNights + " " + (calculatedNights == 1 ? "Night" : "Nights") + ")\n" +
-                                "Guests: " + adultsCount + " Adult(s), " + childrenCount + " Child(ren)\n" +
-                                "Total: " + formatCurrency(calculatedSubtotal),
-                        Toast.LENGTH_LONG).show();
-
+                Intent successIntent = new Intent(RoomBookingActivity.this, BookingSuccessActivity.class);
+                successIntent.putExtra(BookingSuccessActivity.EXTRA_BOOKING_ID, bookingId);
+                startActivity(successIntent);
                 clearFields();
                 finish();
             } else if (bookingId == -2) {

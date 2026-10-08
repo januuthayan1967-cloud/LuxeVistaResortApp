@@ -38,6 +38,9 @@
             android:name=".RoomBookingActivity"
             android:exported="false" />
         <activity
+            android:name=".BookingSuccessActivity"
+            android:exported="false" />
+        <activity
             android:name=".ServicesActivity"
             android:exported="false" />
         <activity

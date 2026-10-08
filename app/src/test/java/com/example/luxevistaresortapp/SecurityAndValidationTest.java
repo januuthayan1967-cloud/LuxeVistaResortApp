@@ -204,4 +204,41 @@ public class SecurityAndValidationTest {
         long total = Math.multiplyExact((long) nights, rate);
         assertEquals(10950000L, total);
     }
+
+    @Test
+    public void testGenerateShareableTextFormatting() {
+        BookingModel model = new BookingModel(
+                99L,
+                "Ocean View Suite",
+                "15/11/2026",
+                "20/11/2026",
+                "125000",
+                "alex@luxevista.com",
+                "LVR-2026-000099",
+                5,
+                2,
+                1,
+                "RESERVED",
+                "1672531199000"
+        );
+
+        String text = BookingSuccessActivity.generateShareableText(model);
+        assertNotNull(text);
+        assertTrue(text.contains("LUXEVISTA RESORT & SPA"));
+        assertTrue(text.contains("LVR-2026-000099"));
+        assertTrue(text.contains("Ocean View Suite"));
+        assertTrue(text.contains("15/11/2026"));
+        assertTrue(text.contains("20/11/2026"));
+        assertTrue(text.contains("5 Night(s)"));
+        assertTrue(text.contains("2 Adult(s), 1 Child(ren)"));
+        assertTrue(text.contains("125,000"));
+        assertTrue(text.contains("RESERVED (Saved Locally)"));
+        assertTrue(text.contains("Notice: This reservation is saved locally on this device"));
+    }
+
+    @Test
+    public void testGenerateShareableTextNullSafety() {
+        String text = BookingSuccessActivity.generateShareableText(null);
+        assertEquals("", text);
+    }
 }

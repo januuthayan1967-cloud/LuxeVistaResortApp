@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/booking_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="36dp">
+
+        <!-- Resort Logo -->
+        <ImageView
+            android:id="@+id/ivVoucherLogo"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/luxevista_logo"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="LuxeVista Logo"/>
+
+        <!-- Success Seal Checkmark -->
+        <ImageView
+            android:id="@+id/ivSuccessSeal"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_voucher_check"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Reservation Saved Seal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservation Saved"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:letterSpacing="0.02"
+            android:layout_marginBottom="2dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your bespoke luxury retreat has been recorded"
+            android:textSize="13sp"
+            android:textColor="#E0E6ED"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Digital Voucher Card -->
+        <LinearLayout
+            android:id="@+id/voucherCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/voucher_card_bg"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp">
+
+            <!-- Card Header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LUXEVISTA RESORT &amp; SPA • DIGITAL VOUCHER"
+                android:textColor="@color/resort_navy_primary"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Booking Reference Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BOOKING REFERENCE"
+                android:textColor="@color/text_secondary"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:id="@+id/tvVoucherReference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/voucher_ref_badge"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:text="LVR-2026-000001"
+                android:textColor="@color/resort_gold_accent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E5D9C3"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- Room Category and Rate -->
+            <TextView
+                android:id="@+id/tvVoucherRoomType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ocean View Suite"
+                android:textColor="@color/text_primary"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/tvVoucherNightlyRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nightly Rate: Rs. 25,000 / night"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- Dates Row (Check-In & Check-Out) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:layout_marginBottom="14dp">
+
+                <!-- Check-In -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CHECK-IN"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"/>
+
+                    <TextView
+                        android:id="@+id/tvVoucherCheckIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10/10/2026"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="2dp"/>
+                </LinearLayout>
+
+                <!-- Check-Out -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CHECK-OUT"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"/>
+
+                    <TextView
+                        android:id="@+id/tvVoucherCheckOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15/10/2026"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="2dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Stay Duration & Guests -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:id="@+id/tvVoucherNights"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="5 Nights"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tvVoucherGuests"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 Adults, 1 Child"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E5D9C3"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- Total Subtotal Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Subtotal"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/tvVoucherTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 125,000"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <!-- Reservation Status -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/tvVoucherStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RESERVED • Saved Locally"
+                    android:textColor="@color/resort_success"
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <!-- Clear Local Reservation Notice -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F7F6F2"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvLocalNotice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notice: This reservation is saved locally on this device and has not been confirmed by a centralized hotel reservation system."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:lineSpacingExtra="2dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Action 1: Share Reservation Summary -->
+        <Button
+            android:id="@+id/btnShareVoucher"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Share Reservation Summary"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:background="@drawable/button_outline_gold"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Action 2: View My Reservations -->
+        <Button
+            android:id="@+id/btnViewBookings"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="View My Reservations"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:background="@drawable/primary_button_bg"
+            android:elevation="3dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Action 3: Return to Home -->
+        <Button
+            android:id="@+id/btnReturnHome"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Return to Home"
+            android:textColor="#E0E6ED"
+            android:textSize="14sp"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+</ScrollView>

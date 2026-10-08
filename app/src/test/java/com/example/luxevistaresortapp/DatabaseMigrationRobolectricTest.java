@@ -241,4 +241,47 @@ public class DatabaseMigrationRobolectricTest {
         assertEquals("RESERVED", model.getStatus());
         assertFalse(model.isCancelled());
     }
+
+    @Test
+    public void testBookingVoucherRetrievalAndOwnershipValidation() {
+        String owner = "voucher_owner@luxevista.com";
+        String attacker = "voucher_intruder@luxevista.com";
+
+        long bookingId = dbHelper.addBookingAtomic(
+                "Deluxe Room",
+                "12/11/2026",
+                "15/11/2026",
+                "54000",
+                owner,
+                3,
+                2,
+                0
+        );
+        assertTrue(bookingId > 0);
+
+        // 1. Genuine owner can access voucher
+        BookingModel legitimate = dbHelper.getBookingModelById(bookingId, owner);
+        assertNotNull("Owner must be able to load their own reservation", legitimate);
+        assertTrue(legitimate.getBookingReference().startsWith("LVR-"));
+        assertEquals("Deluxe Room", legitimate.getRoomType());
+        assertEquals("54000", legitimate.getPrice());
+        assertEquals(3, legitimate.getNights());
+        assertEquals(2, legitimate.getAdults());
+        assertEquals(0, legitimate.getChildren());
+        assertEquals("RESERVED", legitimate.getStatus());
+
+        // 2. Intruder is denied (returns null)
+        BookingModel unauthorized = dbHelper.getBookingModelById(bookingId, attacker);
+        assertNull("Intruder must NOT be able to view another user's reservation", unauthorized);
+
+        // 3. Non-existent booking ID returns null
+        BookingModel nonExistent = dbHelper.getBookingModelById(999999L, owner);
+        assertNull("Non-existent booking must return null", nonExistent);
+
+        // 4. Null or empty user email returns null
+        BookingModel nullUser = dbHelper.getBookingModelById(bookingId, null);
+        assertNull("Null user email must return null", nullUser);
+        BookingModel emptyUser = dbHelper.getBookingModelById(bookingId, "   ");
+        assertNull("Empty user email must return null", emptyUser);
+    }
 }

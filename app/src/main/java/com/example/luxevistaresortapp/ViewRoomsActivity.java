@@ -20,7 +20,10 @@ public class ViewRoomsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_view_rooms);
+
+        EdgeToEdgeHelper.applyRootWindowInsets(findViewById(R.id.roomsScrollView));
 
         // Initialize back navigation
         btnBackRooms = findViewById(R.id.btnBackRooms);

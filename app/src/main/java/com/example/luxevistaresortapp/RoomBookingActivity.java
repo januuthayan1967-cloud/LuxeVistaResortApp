@@ -70,7 +70,10 @@ public class RoomBookingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_room_booking);
+
+        EdgeToEdgeHelper.applyRootWindowInsets(findViewById(R.id.roomBookingScrollView));
 
         dbHelper = DBHelper.getInstance(this);
         sessionManager = SessionManager.getInstance(this);

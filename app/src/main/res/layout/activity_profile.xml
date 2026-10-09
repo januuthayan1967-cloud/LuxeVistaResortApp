@@ -1,122 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profileRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/resort_ivory_bg">
+    android:background="@color/resort_ivory_bg"
+    android:orientation="vertical">
 
     <!-- Header -->
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/profileHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/resort_navy_primary"
+        android:orientation="vertical"
         android:paddingHorizontal="24dp"
         android:paddingTop="28dp"
         android:paddingBottom="24dp">
 
         <TextView
-            android:text="LUXEVISTA MEMBERSHIP"
-            android:textSize="13sp"
-            android:letterSpacing="0.2"
-            android:textStyle="bold"
-            android:textColor="@color/resort_gold_accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:letterSpacing="0.2"
+            android:text="LUXEVISTA MEMBERSHIP"
+            android:textColor="@color/resort_gold_accent"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:text="Guest Profile"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Guest Profile"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/profileScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="20dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <!-- User Details Card -->
             <LinearLayout
-                android:orientation="vertical"
-                android:background="@drawable/card_luxury"
-                android:padding="20dp"
-                android:elevation="4dp"
-                android:layout_marginBottom="24dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/card_luxury"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="54dp"
                         android:layout_height="54dp"
-                        android:src="@drawable/ic_profile"
-                        android:tint="@color/resort_navy_primary"
+                        android:layout_marginEnd="16dp"
                         android:contentDescription="User Avatar"
-                        android:layout_marginEnd="16dp"/>
+                        android:src="@drawable/ic_profile"
+                        app:tint="@color/resort_navy_primary" />
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/userName"
-                            android:text="Name: Guest"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/text_primary"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:text="Name: Guest"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:text="VIP Resort Member"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/resort_gold_accent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:text="VIP Resort Member"
+                            android:textColor="@color/resort_gold_accent"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/resort_divider"
-                    android:layout_marginBottom="14dp"/>
+                    android:layout_marginBottom="14dp"
+                    android:background="@color/resort_divider" />
 
                 <TextView
                     android:id="@+id/userEmail"
-                    android:text="Email: guest@luxevista.com"
-                    android:textSize="15sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Email: guest@luxevista.com"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/userPhone"
-                    android:text="Concierge: +94 77 123 4567"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_muted"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Concierge: +94 77 123 4567"
+                    android:textColor="@color/text_muted"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Action Buttons -->
@@ -124,37 +128,94 @@
                 android:id="@+id/viewBookingsButton"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:text="View Room Reservations"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:layout_marginBottom="14dp"
                 android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
                 android:elevation="3dp"
-                android:layout_marginBottom="14dp"/>
+                android:text="View Room Reservations"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/viewServiceBookingsButton"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:text="View Service Reservations"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
                 android:elevation="3dp"
-                android:layout_marginBottom="24dp"/>
+                android:text="View Service Reservations"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/logoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:text="Sign Out"
-                android:textStyle="bold"
-                android:textSize="15sp"
                 android:backgroundTint="#C53030"
-                android:textColor="@color/white"/>
+                android:text="Sign Out"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
+
+    <!-- Luxury Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottomNavigationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/resort_navy_primary"
+        android:elevation="12dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/navHome"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Home Dashboard"
+                android:src="@drawable/ic_home"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/navServices"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Resort Services"
+                android:src="@drawable/ic_services"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/navAttractions"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Attractions"
+                android:src="@drawable/ic_attractions"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/navProfile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Guest Profile"
+                android:src="@drawable/ic_profile"
+                app:tint="@color/resort_gold_accent" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

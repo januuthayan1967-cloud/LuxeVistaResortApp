@@ -22,7 +22,10 @@ public class BookingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_booking);
+
+        EdgeToEdgeHelper.applyRootWindowInsets(findViewById(R.id.bookingScrollView));
 
         sessionManager = SessionManager.getInstance(this);
 

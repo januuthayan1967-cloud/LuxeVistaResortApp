@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
 
         sessionManager = SessionManager.getInstance(this);
         // If already logged in, navigate straight to HomeActivity
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_loginactivity);
+        EdgeToEdgeHelper.applyRootWindowInsets(findViewById(R.id.loginScrollView));
 
         // Initialize views
         emailInputLayout = findViewById(R.id.emailInputLayout);

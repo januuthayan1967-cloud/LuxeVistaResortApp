@@ -19,7 +19,10 @@ public class ServiceBookingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_service_bookings);
+
+        EdgeToEdgeHelper.applyRootWindowInsets(findViewById(R.id.serviceBookingsRootView));
 
         serviceBookingsListView = findViewById(R.id.serviceBookingsListView);
         emptyServiceBookingsText = findViewById(R.id.emptyServiceBookingsText);

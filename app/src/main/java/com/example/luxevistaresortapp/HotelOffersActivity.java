@@ -13,7 +13,10 @@ public class HotelOffersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_hotel_offers); // Link to your XML layout
+
+        EdgeToEdgeHelper.applyRootWindowInsets(findViewById(R.id.hotelOffersScrollView));
 
         offer1Button = findViewById(R.id.offer1Button);
         offer2Button = findViewById(R.id.offer2Button);

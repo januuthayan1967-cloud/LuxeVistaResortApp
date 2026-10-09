@@ -2,6 +2,7 @@ package com.example.luxevistaresortapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +18,15 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_profile);
 
         sessionManager = SessionManager.getInstance(this);
+
+        View profileHeader = findViewById(R.id.profileHeader);
+        if (profileHeader != null) {
+            EdgeToEdgeHelper.applyTopInset(profileHeader);
+        }
 
         userName = findViewById(R.id.userName);
         userEmail = findViewById(R.id.userEmail);
@@ -60,5 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        EdgeToEdgeHelper.setupBottomNavigation(this, EdgeToEdgeHelper.TAB_PROFILE);
     }
 }

@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_home);
 
         sessionManager = SessionManager.getInstance(this);
@@ -34,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         initViews();
         setupPersonalizedWelcome();
         setupNavigationAndActions();
+        EdgeToEdgeHelper.applyBottomNavInsets(findViewById(R.id.bottomNavigationContainer));
     }
 
     @Override

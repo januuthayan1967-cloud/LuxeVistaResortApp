@@ -31,7 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_activityregister);
+
+        EdgeToEdgeHelper.applyRootWindowInsets(findViewById(R.id.registerScrollView));
 
         // Link the UI components
         registerNameLayout = findViewById(R.id.registerNameLayout);

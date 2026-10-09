@@ -36,7 +36,11 @@ public class ViewBookingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_view_bookings);
+
+        EdgeToEdgeHelper.applyTopInset(findViewById(R.id.bookingsHeaderBar));
+        EdgeToEdgeHelper.applyBottomInset(findViewById(R.id.bookingsListView));
 
         dbHelper = DBHelper.getInstance(this);
         sessionManager = SessionManager.getInstance(this);

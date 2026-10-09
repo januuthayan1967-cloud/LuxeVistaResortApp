@@ -1,171 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/attractionsRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/attractions_background">
+    android:background="@drawable/attractions_background"
+    android:orientation="vertical">
 
+    <ScrollView
+        android:id="@+id/attractionsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="24dp">
+
+            <!-- Top Header Row -->
+            <LinearLayout
+                android:id="@+id/attractionsHeaderBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <ImageButton
+                    android:id="@+id/btnBackAttractions"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Navigate Back"
+                    android:src="@drawable/ic_back_arrow"
+                    app:tint="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.15"
+                        android:text="RESORT ATTRACTIONS"
+                        android:textColor="@color/resort_gold_accent"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unforgettable Experiences"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Beach Tours Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/card_luxury"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/image_rounded"
+                    android:contentDescription="Beach Tours"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/beach_tours" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Guided Beach Tours"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:text="Explore pristine coastal paths and secret coves with our expert local guides"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/bookBeachTours"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/primary_button_bg"
+                    android:text="Book Beach Tour"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Water Sports Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/card_luxury"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/image_rounded"
+                    android:contentDescription="Water Sports"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/water_sports" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Thrilling Water Sports"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:text="Jet skiing, windsurfing, scuba diving and parasailing in crystal turquoise waters"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/bookWaterSports"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/primary_button_bg"
+                    android:text="Book Water Sports"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Fine Dining Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/card_luxury"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/image_rounded"
+                    android:contentDescription="Fine Dining"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fine_dining" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Michelin-Star Fine Dining"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:text="Culinary masterpieces prepared by international chefs overlooking the sunset"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/bookFineDining"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/primary_button_bg"
+                    android:text="Reserve A Table"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Luxury Bottom Navigation Bar -->
     <LinearLayout
+        android:id="@+id/bottomNavigationContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:background="@color/resort_navy_primary"
+        android:elevation="12dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RESORT ATTRACTIONS"
-            android:textSize="13sp"
-            android:letterSpacing="0.15"
-            android:textStyle="bold"
-            android:textColor="@color/resort_gold_accent"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unforgettable Experiences"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20dp" />
-
-        <!-- Beach Tours Card -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/card_luxury"
-            android:padding="16dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp">
+            android:layout_height="64dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:src="@drawable/beach_tours"
-                android:scaleType="centerCrop"
-                android:background="@drawable/image_rounded"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="Beach Tours" />
+            <ImageButton
+                android:id="@+id/navHome"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Home Dashboard"
+                android:src="@drawable/ic_home"
+                app:tint="@color/white" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Guided Beach Tours"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp" />
+            <ImageButton
+                android:id="@+id/navServices"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Resort Services"
+                android:src="@drawable/ic_services"
+                app:tint="@color/white" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Explore pristine coastal paths and secret coves with our expert local guides"
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="14dp" />
+            <ImageButton
+                android:id="@+id/navAttractions"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Attractions"
+                android:src="@drawable/ic_attractions"
+                app:tint="@color/resort_gold_accent" />
 
-            <Button
-                android:id="@+id/bookBeachTours"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Book Beach Tour"
-                android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/navProfile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Guest Profile"
+                android:src="@drawable/ic_profile"
+                app:tint="@color/white" />
         </LinearLayout>
-
-        <!-- Water Sports Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/card_luxury"
-            android:padding="16dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:src="@drawable/water_sports"
-                android:scaleType="centerCrop"
-                android:background="@drawable/image_rounded"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="Water Sports" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thrilling Water Sports"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jet skiing, windsurfing, scuba diving and parasailing in crystal turquoise waters"
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="14dp" />
-
-            <Button
-                android:id="@+id/bookWaterSports"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Book Water Sports"
-                android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Fine Dining Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/card_luxury"
-            android:padding="16dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:src="@drawable/fine_dining"
-                android:scaleType="centerCrop"
-                android:background="@drawable/image_rounded"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="Fine Dining" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Michelin-Star Fine Dining"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Culinary masterpieces prepared by international chefs overlooking the sunset"
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="14dp" />
-
-            <Button
-                android:id="@+id/bookFineDining"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Reserve A Table"
-                android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>

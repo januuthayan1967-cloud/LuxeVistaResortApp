@@ -8,6 +8,7 @@
 
     <!-- Top App Bar / Luxury Header -->
     <LinearLayout
+        android:id="@+id/bookingsHeaderBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

@@ -43,7 +43,7 @@ public class BookingActivity extends AppCompatActivity {
         EdgeToEdgeHelper.enableEdgeToEdge(this);
         setContentView(R.layout.activity_booking);
 
-        displayDateFormat = new SimpleDateFormat("d MMM uuuu", Locale.ENGLISH);
+        displayDateFormat = new SimpleDateFormat("d MMM yyyy", Locale.ENGLISH);
 
         View headerBar = findViewById(R.id.bookingHeaderBar);
         if (headerBar != null) {

@@ -1,87 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
     android:fillViewport="true">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/loginLogo"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:src="@drawable/luxevista_logo"
-            android:layout_marginBottom="24dp"
-            android:contentDescription="LuxeVista Resort Logo"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome to LuxeVista"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginBottom="4dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your luxury retreat awaits"
-            android:textSize="14sp"
-            android:textColor="#E0E6ED"
-            android:layout_marginBottom="28dp"/>
-
-        <EditText
-            android:id="@+id/emailField"
+        <!-- Luxury Dark Scrim Overlay for Contrast -->
+        <View
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:hint="Email Address"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_muted"
-            android:textSize="15sp"
-            android:background="@drawable/edit_text_bg"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/scrim_luxury_gradient" />
 
-        <EditText
-            android:id="@+id/passwordField"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:hint="Password"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_muted"
-            android:textSize="15sp"
-            android:background="@drawable/edit_text_bg"
-            android:inputType="textPassword"
-            android:layout_marginBottom="24dp"/>
-
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:text="Sign In"
-            android:background="@drawable/primary_button_bg"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
-            android:id="@+id/registerText"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account? Register"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:padding="8dp"/>
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="32dp">
 
-    </LinearLayout>
+            <!-- Resort Logo / Insignia -->
+            <ImageView
+                android:id="@+id/loginLogo"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/luxevista_logo"
+                android:contentDescription="LuxeVista Resort Crest" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="LUXEVISTA RESORT &amp; SPA"
+                android:textColor="@color/resort_gold_accent"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.14" />
+
+            <View
+                android:layout_width="56dp"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/luxury_gold_divider" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Executive Guest Portal"
+                android:textColor="@color/auth_input_text"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="24dp"
+                android:text="Sign in to access your bespoke retreat"
+                android:textColor="#C0CBD9"
+                android:textSize="13sp" />
+
+            <!-- Luxury Card Container for Form Fields -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/auth_card_container"
+                android:orientation="vertical">
+
+                <!-- Email Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailInputLayout"
+                    style="@style/Widget.LuxeVista.TextInputLayout.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="Email Address"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_luxury_mail"
+                    app:startIconContentDescription="Email Address Icon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:maxLines="1"
+                        android:textColor="@color/auth_input_text"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordInputLayout"
+                    style="@style/Widget.LuxeVista.TextInputLayout.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Password"
+                    app:errorEnabled="true"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/icon_tint_luxury"
+                    app:startIconDrawable="@drawable/ic_luxury_lock"
+                    app:startIconContentDescription="Password Icon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:textColor="@color/auth_input_text"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Action Button Container -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/loginButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_luxury_primary"
+                        android:elevation="4dp"
+                        android:letterSpacing="0.05"
+                        android:text="Sign In"
+                        android:textColor="@color/resort_navy_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ProgressBar
+                        android:id="@+id/loginProgressBar"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/resort_navy_primary"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Navigation Link to Register -->
+            <TextView
+                android:id="@+id/registerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:minHeight="48dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:text="Don't have an account? Join LuxeVista"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <!-- Security Badge Footer -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_luxury_lock"
+                    app:tint="#8A9BA8"
+                    android:contentDescription="Security Lock" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="Secured by 256-Bit Resort Vault Encryption"
+                    android:textColor="#8A9BA8"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
 </ScrollView>

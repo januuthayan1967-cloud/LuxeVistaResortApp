@@ -31,4 +31,13 @@
     <color name="resort_success">#2E7D32</color>
     <color name="resort_error">#D32F2F</color>
     <color name="input_field_border">#D1D5DB</color>
+
+    <!-- Luxury Authentication & Security Visuals -->
+    <color name="auth_card_bg">#E60D1B2A</color>
+    <color name="auth_card_stroke">#4DE0B973</color>
+    <color name="auth_input_fill">#2B1B263B</color>
+    <color name="auth_input_text">#FDFBF7</color>
+    <color name="strength_weak">#EF5350</color>
+    <color name="strength_fair">#FFA726</color>
+    <color name="strength_strong">#66BB6A</color>
 </resources>

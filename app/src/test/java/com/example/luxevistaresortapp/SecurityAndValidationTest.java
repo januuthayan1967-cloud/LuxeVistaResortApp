@@ -286,4 +286,25 @@ public class SecurityAndValidationTest {
         assertEquals(0L, BookingSuccessActivity.parseNumericPrice(null));
         assertEquals(0L, BookingSuccessActivity.parseNumericPrice("Contact Desk"));
     }
+
+    @Test
+    public void testPasswordStrengthEvaluation() {
+        // Empty and null cases
+        assertEquals(SecurityUtils.PasswordStrength.EMPTY, SecurityUtils.evaluatePasswordStrength(null));
+        assertEquals(SecurityUtils.PasswordStrength.EMPTY, SecurityUtils.evaluatePasswordStrength(""));
+
+        // Too short (< 6 characters)
+        assertEquals(SecurityUtils.PasswordStrength.TOO_SHORT, SecurityUtils.evaluatePasswordStrength("12345"));
+        assertEquals(SecurityUtils.PasswordStrength.TOO_SHORT, SecurityUtils.evaluatePasswordStrength("Pass1"));
+
+        // Moderate (>= 6 characters, basic complexity)
+        assertEquals(SecurityUtils.PasswordStrength.MODERATE, SecurityUtils.evaluatePasswordStrength("simple"));
+        assertEquals(SecurityUtils.PasswordStrength.MODERATE, SecurityUtils.evaluatePasswordStrength("123456"));
+        assertEquals(SecurityUtils.PasswordStrength.MODERATE, SecurityUtils.evaluatePasswordStrength("pass123"));
+
+        // Strong (>= 8 characters with mix of upper, lower, digits, symbols)
+        assertEquals(SecurityUtils.PasswordStrength.STRONG, SecurityUtils.evaluatePasswordStrength("LuxeRetreat2026!"));
+        assertEquals(SecurityUtils.PasswordStrength.STRONG, SecurityUtils.evaluatePasswordStrength("P@ssw0rd99"));
+        assertEquals(SecurityUtils.PasswordStrength.STRONG, SecurityUtils.evaluatePasswordStrength("V1st@Resort#"));
+    }
 }

@@ -12,4 +12,22 @@
     </style>
 
     <style name="Theme.LuxeVistaResortApp" parent="Base.Theme.LuxeVistaResortApp" />
+
+    <!-- Luxury Outlined TextInputLayout Style -->
+    <style name="Widget.LuxeVista.TextInputLayout.Outlined" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/box_stroke_luxury</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+        <item name="boxBackgroundColor">@color/auth_input_fill</item>
+        <item name="hintTextColor">@color/resort_gold_accent</item>
+        <item name="android:textColorHint">#A0AEC0</item>
+        <item name="startIconTint">@color/icon_tint_luxury</item>
+        <item name="endIconTint">@color/icon_tint_luxury</item>
+        <item name="errorTextColor">@color/strength_weak</item>
+        <item name="errorIconTint">@color/strength_weak</item>
+    </style>
 </resources>

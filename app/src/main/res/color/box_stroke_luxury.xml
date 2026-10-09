@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:color="@color/resort_gold_accent" />
+    <item android:state_hovered="true" android:color="@color/resort_gold_light" />
+    <item android:color="#4DE0B973" />
+</selector>

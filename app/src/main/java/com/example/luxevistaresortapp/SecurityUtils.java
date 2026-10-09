@@ -49,6 +49,47 @@ public class SecurityUtils {
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    public enum PasswordStrength {
+        EMPTY,
+        TOO_SHORT,
+        MODERATE,
+        STRONG
+    }
+
+    public static PasswordStrength evaluatePasswordStrength(String password) {
+        if (password == null || password.isEmpty()) {
+            return PasswordStrength.EMPTY;
+        }
+        if (password.length() < 6) {
+            return PasswordStrength.TOO_SHORT;
+        }
+
+        boolean hasUpper = false;
+        boolean hasLower = false;
+        boolean hasDigit = false;
+        boolean hasSpecial = false;
+
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isUpperCase(c)) hasUpper = true;
+            else if (Character.isLowerCase(c)) hasLower = true;
+            else if (Character.isDigit(c)) hasDigit = true;
+            else hasSpecial = true;
+        }
+
+        int score = 0;
+        if (password.length() >= 8) score++;
+        if (hasUpper && hasLower) score++;
+        if (hasDigit) score++;
+        if (hasSpecial) score++;
+
+        if (score >= 3) {
+            return PasswordStrength.STRONG;
+        } else {
+            return PasswordStrength.MODERATE;
+        }
+    }
+
     public static LocalDate parseLocalDate(String dateStr) {
         if (dateStr == null || dateStr.trim().isEmpty()) return null;
         String trimmed = dateStr.trim();

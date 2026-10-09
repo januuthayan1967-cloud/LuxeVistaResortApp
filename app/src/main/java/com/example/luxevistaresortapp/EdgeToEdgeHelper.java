@@ -1,6 +1,7 @@
 package com.example.luxevistaresortapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
@@ -37,34 +38,93 @@ public class EdgeToEdgeHelper {
     }
 
     /**
+     * Retrieves the platform status bar height as an immediate fallback.
+     */
+    public static int getStatusBarHeight(Context context) {
+        if (context == null) return 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            try {
+                return context.getResources().getDimensionPixelSize(resourceId);
+            } catch (Exception ignored) {
+            }
+        }
+        return 0;
+    }
+
+    /**
      * Applies system navigation bar insets to the bottom navigation bar container.
      * Prevents double-padding on subsequent layout passes.
      */
     public static void applyBottomNavInsets(View bottomNavContainer) {
         if (bottomNavContainer == null) return;
+        final int initialLeft = bottomNavContainer.getPaddingLeft();
+        final int initialTop = bottomNavContainer.getPaddingTop();
+        final int initialRight = bottomNavContainer.getPaddingRight();
+        final int initialBottom = bottomNavContainer.getPaddingBottom();
 
         ViewCompat.setOnApplyWindowInsetsListener(bottomNavContainer, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(
                     WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
             );
-            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), insets.bottom);
+            v.setPadding(initialLeft, initialTop, initialRight, initialBottom + insets.bottom);
             return windowInsets;
         });
+
+        if (bottomNavContainer.isAttachedToWindow()) {
+            ViewCompat.requestApplyInsets(bottomNavContainer);
+        } else {
+            bottomNavContainer.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(View v) {
+                    v.removeOnAttachStateChangeListener(this);
+                    ViewCompat.requestApplyInsets(v);
+                }
+                @Override
+                public void onViewDetachedFromWindow(View v) {}
+            });
+        }
     }
 
     /**
      * Applies status bar top insets to a top header or toolbar view.
+     * Immediately applies platform status bar height to guarantee zero overlap on first frame,
+     * and updates dynamically when system window insets are dispatched.
      */
     public static void applyTopInset(View headerView) {
         if (headerView == null) return;
-        final int initialPaddingTop = headerView.getPaddingTop();
+        final int initialLeft = headerView.getPaddingLeft();
+        final int initialTop = headerView.getPaddingTop();
+        final int initialRight = headerView.getPaddingRight();
+        final int initialBottom = headerView.getPaddingBottom();
+
+        final int defaultStatusBarHeight = getStatusBarHeight(headerView.getContext());
+        if (defaultStatusBarHeight > 0) {
+            headerView.setPadding(initialLeft, initialTop + defaultStatusBarHeight, initialRight, initialBottom);
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(headerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(
                     WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
             );
-            v.setPadding(v.getPaddingLeft(), initialPaddingTop + insets.top, v.getPaddingRight(), v.getPaddingBottom());
+            int safeTop = Math.max(insets.top, defaultStatusBarHeight);
+            v.setPadding(initialLeft, initialTop + safeTop, initialRight, initialBottom);
             return windowInsets;
         });
+
+        if (headerView.isAttachedToWindow()) {
+            ViewCompat.requestApplyInsets(headerView);
+        } else {
+            headerView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(View v) {
+                    v.removeOnAttachStateChangeListener(this);
+                    ViewCompat.requestApplyInsets(v);
+                }
+                @Override
+                public void onViewDetachedFromWindow(View v) {}
+            });
+        }
     }
 
     /**

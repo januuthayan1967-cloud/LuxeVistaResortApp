@@ -53,6 +53,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        View topHeader = findViewById(R.id.homeTopHeaderLayout);
+        if (topHeader != null) {
+            EdgeToEdgeHelper.applyTopInset(topHeader);
+        }
+
         welcomeGreeting = findViewById(R.id.welcomeGreeting);
         welcomeSub = findViewById(R.id.welcomeSub);
         btnNotificationBell = findViewById(R.id.btnNotificationBell);

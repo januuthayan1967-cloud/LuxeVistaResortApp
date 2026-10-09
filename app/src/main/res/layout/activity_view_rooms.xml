@@ -1,219 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/resort_ivory_bg">
+    android:background="@color/resort_ivory_bg"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LUXURY ACCOMMODATIONS"
-            android:textSize="13sp"
-            android:letterSpacing="0.15"
-            android:textStyle="bold"
-            android:textColor="@color/resort_gold_accent"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Your Sanctuary"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"
-            android:layout_marginBottom="20dp" />
-
-        <!-- Ocean View Suite -->
+        <!-- Luxury Header Bar with Back Navigation -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnBackRooms"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Navigate back to Home"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_back_arrow"
+                app:tint="@color/resort_navy_primary" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.16"
+                    android:text="LUXEVISTA SANCTUARIES"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Your Room"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="20dp"
+            android:text="Choose from our four signature accommodation categories"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <!-- 1. Ocean View Suite Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/card_luxury"
-            android:padding="16dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp">
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:src="@drawable/ocean_suite"
-                android:scaleType="centerCrop"
+                android:layout_height="175dp"
                 android:background="@drawable/image_rounded"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="Ocean View Suite" />
+                android:contentDescription="Ocean View Suite Photograph"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ocean_suite" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ocean View Suite"
+                    android:textColor="@color/text_primary"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 25,000 / night"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ocean View Suite"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="14dp"
+                android:text="Panoramic ocean vistas with private balcony and king size bed"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 25,000 per night"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/resort_gold_accent"
-                android:layout_marginBottom="12dp" />
-
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bookOceanSuite"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Book This Suite"
-                android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
+                android:background="@drawable/btn_luxury_primary"
+                android:elevation="3dp"
+                android:letterSpacing="0.04"
+                android:text="Book Ocean View Suite"
+                android:textColor="@color/resort_navy_primary"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Deluxe Room -->
+        <!-- 2. Deluxe Room Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/card_luxury"
-            android:padding="16dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp">
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:src="@drawable/deluxe_room"
-                android:scaleType="centerCrop"
+                android:layout_height="175dp"
                 android:background="@drawable/image_rounded"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="Deluxe Room" />
+                android:contentDescription="Deluxe Room Photograph"
+                android:scaleType="centerCrop"
+                android:src="@drawable/deluxe_room" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Deluxe Room"
+                    android:textColor="@color/text_primary"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 18,000 / night"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deluxe Room"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="14dp"
+                android:text="Sophisticated luxury with handcrafted furnishings and lavish bathroom"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 18,000 per night"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/resort_gold_accent"
-                android:layout_marginBottom="12dp" />
-
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bookDeluxeRoom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Book This Room"
-                android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
+                android:background="@drawable/btn_luxury_primary"
+                android:elevation="3dp"
+                android:letterSpacing="0.04"
+                android:text="Book Deluxe Room"
+                android:textColor="@color/resort_navy_primary"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Single Room -->
+        <!-- 3. Single Room Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/card_luxury"
-            android:padding="16dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp">
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:src="@drawable/single_room"
-                android:scaleType="centerCrop"
+                android:layout_height="175dp"
                 android:background="@drawable/image_rounded"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="Single Room" />
+                android:contentDescription="Single Room Photograph"
+                android:scaleType="centerCrop"
+                android:src="@drawable/single_room" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Single Room"
+                    android:textColor="@color/text_primary"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 12,000 / night"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Single Room"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="14dp"
+                android:text="Intimate and serene retreat tailored for solo executive travellers"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 12,000 per night"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/resort_gold_accent"
-                android:layout_marginBottom="12dp" />
-
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bookSingleRoom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Book This Room"
-                android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
+                android:background="@drawable/btn_luxury_primary"
+                android:elevation="3dp"
+                android:letterSpacing="0.04"
+                android:text="Book Single Room"
+                android:textColor="@color/resort_navy_primary"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Family Room -->
+        <!-- 4. Family Room Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/card_luxury"
-            android:padding="16dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp">
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:src="@drawable/family_room"
-                android:scaleType="centerCrop"
+                android:layout_height="175dp"
                 android:background="@drawable/image_rounded"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="Family Room" />
+                android:contentDescription="Family Room Photograph"
+                android:scaleType="centerCrop"
+                android:src="@drawable/family_room" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Family Room"
+                    android:textColor="@color/text_primary"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 30,000 / night"
+                    android:textColor="@color/resort_gold_accent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Family Grand Room"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="14dp"
+                android:text="Generous space designed for families with luxurious amenities"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 30,000 per night"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/resort_gold_accent"
-                android:layout_marginBottom="12dp" />
-
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bookFamilyRoom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Book This Room"
-                android:background="@drawable/primary_button_bg"
-                android:textColor="@color/white"
+                android:background="@drawable/btn_luxury_primary"
+                android:elevation="3dp"
+                android:letterSpacing="0.04"
+                android:text="Book Family Room"
+                android:textColor="@color/resort_navy_primary"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </LinearLayout>
 

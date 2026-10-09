@@ -23,6 +23,8 @@ import java.util.Map;
 public class RoomBookingActivity extends AppCompatActivity {
 
     public static final String EXTRA_EDIT_BOOKING_ID = "editBookingId";
+    public static final String EXTRA_ROOM_TYPE = "roomType";
+    public static final String EXTRA_SELECTED_ROOM_TYPE = "selectedRoomType";
     private long editBookingId = -1;
     private BookingModel originalBookingToEdit;
     private TextView tvBookingHeaderTitle, tvBookingHeaderSubtitle;
@@ -137,44 +139,55 @@ public class RoomBookingActivity extends AppCompatActivity {
             }
             bookNowButton.setText("Save Changes");
 
-            // Pre-populate room spinner
-            for (int i = 0; i < roomTypes.length; i++) {
-                if (roomTypes[i].equalsIgnoreCase(originalBookingToEdit.getRoomType().trim())) {
-                    roomTypeSpinner.setSelection(i);
-                    break;
-                }
-            }
+        // Pre-populate room spinner
+        roomTypeSpinner.setSelection(getRoomTypePosition(originalBookingToEdit.getRoomType()));
 
-            // Pre-populate dates
-            checkInDate.setText(originalBookingToEdit.getCheckIn());
-            checkOutDate.setText(originalBookingToEdit.getCheckOut());
+        // Pre-populate dates
+        checkInDate.setText(originalBookingToEdit.getCheckIn());
+        checkOutDate.setText(originalBookingToEdit.getCheckOut());
 
-            // Pre-populate guest counts
-            adultsCount = originalBookingToEdit.getAdults() > 0 ? originalBookingToEdit.getAdults() : 1;
-            childrenCount = Math.max(0, originalBookingToEdit.getChildren());
-            tvAdultsCount.setText(String.valueOf(adultsCount));
-            tvChildrenCount.setText(String.valueOf(childrenCount));
-            updateStepperButtonStates();
+        // Pre-populate guest counts
+        adultsCount = originalBookingToEdit.getAdults() > 0 ? originalBookingToEdit.getAdults() : 1;
+        childrenCount = Math.max(0, originalBookingToEdit.getChildren());
+        tvAdultsCount.setText(String.valueOf(adultsCount));
+        tvChildrenCount.setText(String.valueOf(childrenCount));
+        updateStepperButtonStates();
+    }
+}
+
+public static int getRoomTypePosition(String roomType) {
+    if (roomType == null) return 0;
+    String[] types = ROOM_RATES.keySet().toArray(new String[0]);
+    for (int i = 0; i < types.length; i++) {
+        if (types[i].equalsIgnoreCase(roomType.trim())) {
+            return i;
         }
     }
+    return 0;
+}
 
-    private void setupRoomSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomTypes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roomTypeSpinner.setAdapter(adapter);
-
-        // Pre-select room if passed from ViewRoomsActivity
-        String preSelectedRoom = getIntent().getStringExtra("roomType");
-        int preSelectedPos = 0;
-        if (preSelectedRoom != null) {
-            for (int i = 0; i < roomTypes.length; i++) {
-                if (roomTypes[i].equalsIgnoreCase(preSelectedRoom.trim())) {
-                    preSelectedPos = i;
-                    break;
-                }
-            }
+public static long getRoomRate(String roomType) {
+    if (roomType == null) return 25000L;
+    for (Map.Entry<String, Long> entry : ROOM_RATES.entrySet()) {
+        if (entry.getKey().equalsIgnoreCase(roomType.trim())) {
+            return entry.getValue();
         }
-        roomTypeSpinner.setSelection(preSelectedPos);
+    }
+    return 25000L;
+}
+
+private void setupRoomSpinner() {
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomTypes);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    roomTypeSpinner.setAdapter(adapter);
+
+    // Pre-select room if passed from ViewRoomsActivity or HomeActivity
+    String preSelectedRoom = getIntent().getStringExtra(EXTRA_ROOM_TYPE);
+    if (preSelectedRoom == null) {
+        preSelectedRoom = getIntent().getStringExtra(EXTRA_SELECTED_ROOM_TYPE);
+    }
+    int preSelectedPos = getRoomTypePosition(preSelectedRoom);
+    roomTypeSpinner.setSelection(preSelectedPos);
 
         roomTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

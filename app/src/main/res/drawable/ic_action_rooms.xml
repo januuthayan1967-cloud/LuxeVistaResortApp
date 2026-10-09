@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Luxury Hotel Bed: Headboard, Pillows, Mattress, Posts -->
+    <!-- Headboard -->
+    <path
+        android:fillColor="#C5A059"
+        android:pathData="M2,6 C2,5.45 2.45,5 3,5 L21,5 C21.55,5 22,5.45 22,6 L22,10 L2,10 Z" />
+    <!-- Left Pillow -->
+    <path
+        android:fillColor="#C5A059"
+        android:pathData="M4,10 C4,9.45 4.45,9 5,9 L10,9 C10.55,9 11,9.45 11,10 L11,12 L4,12 Z" />
+    <!-- Right Pillow -->
+    <path
+        android:fillColor="#C5A059"
+        android:pathData="M13,10 C13,9.45 13.45,9 14,9 L19,9 C19.55,9 20,9.45 20,10 L20,12 L13,12 Z" />
+    <!-- Mattress & Quilt Bedspread -->
+    <path
+        android:fillColor="#C5A059"
+        android:pathData="M2,13 C2,12.45 2.45,12 3,12 L21,12 C21.55,12 22,12.45 22,13 L22,17 C22,17.55 21.55,18 21,18 L3,18 C2.45,18 2,17.55 2,17 Z" />
+    <!-- Bedposts (Left & Right Legs) -->
+    <path
+        android:fillColor="#C5A059"
+        android:pathData="M2,4 L3.5,4 L3.5,20 L2,20 Z" />
+    <path
+        android:fillColor="#C5A059"
+        android:pathData="M20.5,4 L22,4 L22,20 L20.5,20 Z" />
+</vector>

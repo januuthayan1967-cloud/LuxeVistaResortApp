@@ -8,6 +8,37 @@
     android:background="@color/resort_ivory_bg"
     android:orientation="vertical">
 
+    <!-- Top Navy Header Bar -->
+    <RelativeLayout
+        android:id="@+id/servicesTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/resort_navy_primary"
+        android:paddingHorizontal="8dp">
+
+        <ImageButton
+            android:id="@+id/btnBackServices"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Navigate Back"
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/servicesHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:letterSpacing="0.04"
+            android:text="Spa &amp; Dining"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
     <!-- Scrollable Content -->
     <ScrollView
         android:id="@+id/servicesScrollView"
@@ -21,46 +52,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Luxury Hero Header Section -->
+            <!-- Hero Section -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="220dp">
 
-                <!-- Original Resort Services Photography -->
                 <ImageView
                     android:id="@+id/servicesHeroBackground"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="LuxeVista Services Photography"
+                    android:contentDescription="Spa and Dining Photography"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/services_background" />
+                    android:src="@drawable/spa_treatments" />
 
-                <!-- Gradient Scrim for Contrast & Legibility -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/hero_scrim_bottom" />
 
-                <!-- Top Bar with Back Button -->
-                <LinearLayout
-                    android:id="@+id/servicesTopBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="16dp">
-
-                    <ImageButton
-                        android:id="@+id/btnBackServices"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Return to Home"
-                        android:src="@drawable/ic_back_arrow"
-                        app:tint="@color/white" />
-                </LinearLayout>
-
-                <!-- Hero Header Overlay -->
+                <!-- Text Overlay -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -69,434 +79,361 @@
                     android:paddingHorizontal="20dp"
                     android:paddingBottom="20dp">
 
-                    <!-- Resort Crest & Subtitle -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
-                            android:contentDescription="LuxeVista Crest"
-                            android:src="@drawable/luxevista_logo" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:letterSpacing="0.16"
-                            android:text="LUXEVISTA RESORT &amp; SPA"
-                            android:textColor="@color/resort_gold_accent"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Screen Title -->
                     <TextView
                         android:id="@+id/servicesTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exclusive Resort Services"
+                        android:letterSpacing="0.02"
+                        android:text="Indulge in World-Class\nServices"
                         android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <!-- Subtitle -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="Rejuvenating wellness, Michelin dining &amp; bespoke adventures"
-                        android:textColor="#CBD5E1"
+                        android:layout_marginTop="6dp"
+                        android:text="Relax, rejuvenate and enjoy exceptional culinary experiences."
+                        android:textColor="#E2E8F0"
                         android:textSize="13sp" />
                 </LinearLayout>
             </FrameLayout>
 
-            <!-- Main Content Container -->
+            <!-- Category Filter Chips Row -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="12dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Filter 1: All -->
+                    <TextView
+                        android:id="@+id/chipFilterAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/chip_filter_active"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="All"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Filter 2: Spa -->
+                    <TextView
+                        android:id="@+id/chipFilterSpa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/chip_filter_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Spa"
+                        android:textColor="@color/resort_navy_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Filter 3: Dining -->
+                    <TextView
+                        android:id="@+id/chipFilterDining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/chip_filter_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Dining"
+                        android:textColor="@color/resort_navy_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- Filter 4: Wellness -->
+                    <TextView
+                        android:id="@+id/chipFilterWellness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@drawable/chip_filter_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Wellness"
+                        android:textColor="@color/resort_navy_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Service Cards Container -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="20dp"
+                android:paddingHorizontal="16dp"
                 android:paddingBottom="24dp">
 
-                <!-- Section Subheading -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0.12"
-                    android:text="CURATED FIVE-STAR EXPERIENCES"
-                    android:textColor="@color/resort_gold_accent"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Select any luxury service below to reserve your schedule"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
-
-                <!-- CARD 1: Spa Treatments -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/card_luxury"
-                    android:elevation="4dp"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Spa Treatments"
-                            android:textColor="@color/text_primary"
-                            android:textSize="19sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Holistic Wellness"
-                            android:textColor="@color/resort_gold_accent"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="175dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/image_rounded"
-                        android:contentDescription="LuxeVista Spa Sanctuary"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/spa_treatments" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Indulge in rejuvenating body rituals, signature Ayurvedic therapies, and hot basalt stone massages designed for ultimate sensory revitalization."
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="• Private Treatment Suites • Organic Essential Oils • Ocean Breeze Pavilion"
-                        android:textColor="@color/text_muted"
-                        android:textSize="11sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnBookSpa"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/btn_luxury_primary"
-                        android:letterSpacing="0.04"
-                        android:text="Reserve Spa Treatment"
-                        android:textColor="@color/resort_navy_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- CARD 2: Fine Dining -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/card_luxury"
-                    android:elevation="4dp"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Fine Dining"
-                            android:textColor="@color/text_primary"
-                            android:textSize="19sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Michelin Gastronomy"
-                            android:textColor="@color/resort_gold_accent"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="175dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/image_rounded"
-                        android:contentDescription="LuxeVista Fine Dining Restaurant"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/fine_dining" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Savor artfully crafted multi-course tasting menus by international culinary masters, paired with sommelier-selected rare vintages facing the ocean sunset."
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="• Oceanfront Seating • Sunset Tasting Menu • Private Wine Cellar"
-                        android:textColor="@color/text_muted"
-                        android:textSize="11sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnBookDining"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/btn_luxury_primary"
-                        android:letterSpacing="0.04"
-                        android:text="Reserve A Table"
-                        android:textColor="@color/resort_navy_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- CARD 3: Poolside Cabanas -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/card_luxury"
-                    android:elevation="4dp"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Poolside Cabanas"
-                            android:textColor="@color/text_primary"
-                            android:textSize="19sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="VIP Daybeds"
-                            android:textColor="@color/resort_gold_accent"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="175dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/image_rounded"
-                        android:contentDescription="LuxeVista Infinity Poolside Cabanas"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/poolside_cabanas" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Unwind in a private breezy daybed cabana beside the infinity pool, complete with dedicated butler service, iced champagne, and tropical refreshments."
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="• Dedicated Butler • Chilled Towels &amp; Refreshments • Direct Infinity Pool Access"
-                        android:textColor="@color/text_muted"
-                        android:textSize="11sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnBookCabanas"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/btn_luxury_primary"
-                        android:letterSpacing="0.04"
-                        android:text="Reserve Poolside Cabana"
-                        android:textColor="@color/resort_navy_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- CARD 4: Guided Beach Tours -->
-                <LinearLayout
+                <!-- 1. LuxeVista Spa Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardServiceSpa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/card_luxury"
-                    android:elevation="4dp"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Guided Beach Tours"
-                            android:textColor="@color/text_primary"
-                            android:textSize="19sp"
-                            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:contentDescription="LuxeVista Spa"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/spa_treatments" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Coastal Exploration"
-                            android:textColor="@color/resort_gold_accent"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="LuxeVista Spa"
+                                android:textColor="@color/text_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="14dp"
+                                android:text="Rejuvenate your mind and body with our signature spa treatments."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnBookSpa"
+                                android:layout_width="match_parent"
+                                android:layout_height="46dp"
+                                android:background="@drawable/btn_gold_card_cta"
+                                android:letterSpacing="0.02"
+                                android:text="Book Spa Service \u2192"
+                                android:textColor="@color/resort_navy_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                    <ImageView
+                <!-- 2. Ocean Breeze Restaurant Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardServiceDining"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="175dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/image_rounded"
-                        android:contentDescription="LuxeVista Guided Beach Tours"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/beach_tours" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Traverse secluded golden coastlines and vibrant coastal reefs on an exclusive expedition accompanied by certified marine naturalists."
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="• Sunset &amp; Sunrise Walks • Marine Sanctuary • Private Naturalist Guide"
-                        android:textColor="@color/text_muted"
-                        android:textSize="11sp" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:contentDescription="Ocean Breeze Restaurant"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fine_dining" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnBookBeachTours"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ocean Breeze Restaurant"
+                                android:textColor="@color/text_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="14dp"
+                                android:text="Savor exquisite local and international cuisine with breathtaking ocean views."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnBookDining"
+                                android:layout_width="match_parent"
+                                android:layout_height="46dp"
+                                android:background="@drawable/btn_gold_card_cta"
+                                android:letterSpacing="0.02"
+                                android:text="Reserve a Table \u2192"
+                                android:textColor="@color/resort_navy_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 3. Poolside Cabanas Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardServiceCabanas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/btn_luxury_primary"
-                        android:letterSpacing="0.04"
-                        android:text="Book Guided Beach Tour"
-                        android:textColor="@color/resort_navy_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                <!-- Backward Compatibility View for legacy servicesListView -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:contentDescription="Poolside Cabanas"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/poolside_cabanas" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Poolside Cabana Experience"
+                                android:textColor="@color/text_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="14dp"
+                                android:text="Private VIP cabanas with personalized butler service and daybed relaxation."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnBookCabanas"
+                                android:layout_width="match_parent"
+                                android:layout_height="46dp"
+                                android:background="@drawable/btn_gold_card_cta"
+                                android:letterSpacing="0.02"
+                                android:text="Book Cabana Service \u2192"
+                                android:textColor="@color/resort_navy_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 4. Guided Beach Tours Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardServiceBeachTours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:contentDescription="Guided Beach Tours"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/beach_tours" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Guided Beach &amp; Coastal Tours"
+                                android:textColor="@color/text_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="14dp"
+                                android:text="Exclusive private tours of the pristine coastlines and hidden coves."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnBookBeachTours"
+                                android:layout_width="match_parent"
+                                android:layout_height="46dp"
+                                android:background="@drawable/btn_gold_card_cta"
+                                android:letterSpacing="0.02"
+                                android:text="Book Beach Tour \u2192"
+                                android:textColor="@color/resort_navy_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Hidden legacy ListView for backwards compatibility -->
                 <ListView
                     android:id="@+id/servicesListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:visibility="gone" />
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Luxury Bottom Navigation Bar -->
-    <LinearLayout
-        android:id="@+id/bottomNavigationContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/resort_navy_primary"
-        android:elevation="12dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/navHome"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Home Dashboard"
-                android:src="@drawable/ic_home"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/navServices"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Resort Services"
-                android:src="@drawable/ic_services"
-                app:tint="@color/resort_gold_accent" />
-
-            <ImageButton
-                android:id="@+id/navAttractions"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Attractions"
-                android:src="@drawable/ic_attractions"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/navProfile"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Guest Profile"
-                android:src="@drawable/ic_profile"
-                app:tint="@color/white" />
-        </LinearLayout>
-    </LinearLayout>
+    <!-- Bottom Navigation Bar -->
+    <include layout="@layout/layout_bottom_navigation" />
 
 </LinearLayout>

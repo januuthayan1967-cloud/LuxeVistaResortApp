@@ -15,7 +15,9 @@ public class SecurityUtils {
     private static final DateTimeFormatter[] DATE_FORMATTERS = new DateTimeFormatter[]{
             DateTimeFormatter.ofPattern("d/M/uuuu"),
             DateTimeFormatter.ofPattern("uuuu-MM-dd"),
-            DateTimeFormatter.ofPattern("d-M-uuuu")
+            DateTimeFormatter.ofPattern("d-M-uuuu"),
+            DateTimeFormatter.ofPattern("d MMM uuuu", java.util.Locale.ENGLISH),
+            DateTimeFormatter.ofPattern("dd MMM uuuu", java.util.Locale.ENGLISH)
     };
 
     public static String generateSalt() {

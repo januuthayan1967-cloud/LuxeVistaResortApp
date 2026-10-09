@@ -1,5 +1,6 @@
 package com.example.luxevistaresortapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,9 @@ public class AttractionsActivity extends AppCompatActivity {
 
     private Button bookBeachTours, bookWaterSports, bookFineDining;
     private ImageButton btnBackAttractions;
+
+    // Redesigned Attraction Cards
+    private View cardPrivateIsland, cardSunsetViewing, cardNatureTrails, cardWaterSports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +33,38 @@ public class AttractionsActivity extends AppCompatActivity {
             EdgeToEdgeHelper.applyTopInset(headerBar);
         }
 
-        // Get button references
+        // Attraction Card Click Listeners
+        cardPrivateIsland = findViewById(R.id.cardPrivateIsland);
+        if (cardPrivateIsland != null) {
+            cardPrivateIsland.setOnClickListener(v -> openBooking("Guided Beach Tours"));
+        }
+
+        cardSunsetViewing = findViewById(R.id.cardSunsetViewing);
+        if (cardSunsetViewing != null) {
+            cardSunsetViewing.setOnClickListener(v -> showAttractionDetails(
+                    "Sunset Viewing Point",
+                    "Witness breathtaking panoramic sunsets from our exclusive resort cliffside terrace. Complimentary evening champagne service available daily from 5:30 PM to 6:45 PM. Contact guest concierge for reserved seating."
+            ));
+        }
+
+        cardNatureTrails = findViewById(R.id.cardNatureTrails);
+        if (cardNatureTrails != null) {
+            cardNatureTrails.setOnClickListener(v -> showAttractionDetails(
+                    "Nature & Tropical Trails",
+                    "Explore over 5 kilometers of manicured trails through lush botanical gardens and seaside cliffs. Guided morning eco-walks departure daily at 7:00 AM from the resort activity center."
+            ));
+        }
+
+        cardWaterSports = findViewById(R.id.cardWaterSports);
+        if (cardWaterSports != null) {
+            cardWaterSports.setOnClickListener(v -> openBooking("Water Sports"));
+        }
+
+        // Legacy button references for full test compatibility
         bookBeachTours = findViewById(R.id.bookBeachTours);
         bookWaterSports = findViewById(R.id.bookWaterSports);
         bookFineDining = findViewById(R.id.bookFineDining);
 
-        // Set click actions
         if (bookBeachTours != null) {
             bookBeachTours.setOnClickListener(v -> openBooking("Beach Tours"));
         }
@@ -47,6 +77,14 @@ public class AttractionsActivity extends AppCompatActivity {
 
         // Setup bottom navigation bar
         EdgeToEdgeHelper.setupBottomNavigation(this, EdgeToEdgeHelper.TAB_ATTRACTIONS);
+    }
+
+    private void showAttractionDetails(String title, String message) {
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("Close", null)
+                .show();
     }
 
     private void openBooking(String serviceName) {

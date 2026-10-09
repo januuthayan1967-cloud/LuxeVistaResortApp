@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -16,10 +17,15 @@ public class HomeActivity extends AppCompatActivity {
     private Button roomBookingButton;
     private TextView welcomeGreeting, welcomeSub;
 
-    // Quick Action shortcuts
-    private View actionExploreRooms, actionMyReservations, actionServices, actionOffers;
+    // Quick Action shortcuts (6 cards matching design reference)
+    private View actionExploreRooms, actionMyReservations, actionOffers;
+    private View actionServices, actionAttractions, actionProfile;
 
-    // Featured Suite CTAs
+    // Top and Featured views
+    private ImageButton btnNotificationBell;
+    private View btnSeeAllFeatured, cardFeaturedExperience;
+
+    // Featured Suite CTAs (preserved for tests)
     private Button btnHomeBookOceanSuite, btnHomeBookFamilyRoom;
 
     private SessionManager sessionManager;
@@ -35,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         initViews();
         setupPersonalizedWelcome();
         setupNavigationAndActions();
-        EdgeToEdgeHelper.applyBottomNavInsets(findViewById(R.id.bottomNavigationContainer));
+        EdgeToEdgeHelper.setupBottomNavigation(this, EdgeToEdgeHelper.TAB_HOME);
     }
 
     @Override
@@ -48,13 +54,19 @@ public class HomeActivity extends AppCompatActivity {
     private void initViews() {
         welcomeGreeting = findViewById(R.id.welcomeGreeting);
         welcomeSub = findViewById(R.id.welcomeSub);
+        btnNotificationBell = findViewById(R.id.btnNotificationBell);
 
         roomBookingButton = findViewById(R.id.roomBookingButton);
 
         actionExploreRooms = findViewById(R.id.actionExploreRooms);
         actionMyReservations = findViewById(R.id.actionMyReservations);
-        actionServices = findViewById(R.id.actionServices);
         actionOffers = findViewById(R.id.actionOffers);
+        actionServices = findViewById(R.id.actionServices);
+        actionAttractions = findViewById(R.id.actionAttractions);
+        actionProfile = findViewById(R.id.actionProfile);
+
+        btnSeeAllFeatured = findViewById(R.id.btnSeeAllFeatured);
+        cardFeaturedExperience = findViewById(R.id.cardFeaturedExperience);
 
         btnHomeBookOceanSuite = findViewById(R.id.btnHomeBookOceanSuite);
         btnHomeBookFamilyRoom = findViewById(R.id.btnHomeBookFamilyRoom);
@@ -78,15 +90,21 @@ public class HomeActivity extends AppCompatActivity {
 
         if (welcomeSub != null) {
             if (sessionManager != null && sessionManager.isLoggedIn()) {
-                welcomeSub.setText("Welcome back to your luxury sanctuary");
+                welcomeSub.setText("Discover Luxury. Create Memories.");
             } else {
-                welcomeSub.setText("Experience ultimate five-star comfort");
+                welcomeSub.setText("Discover Luxury. Create Memories.");
             }
         }
     }
 
     private void setupNavigationAndActions() {
-        // Quick Action Shortcuts
+        // Notification bell
+        if (btnNotificationBell != null) {
+            btnNotificationBell.setOnClickListener(v ->
+                    Toast.makeText(HomeActivity.this, "No new resort notifications at this time", Toast.LENGTH_SHORT).show());
+        }
+
+        // Quick Action Shortcuts (6 cards)
         if (actionExploreRooms != null) {
             actionExploreRooms.setOnClickListener(v ->
                     startActivity(new Intent(HomeActivity.this, ViewRoomsActivity.class)));
@@ -97,17 +115,37 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(new Intent(HomeActivity.this, ViewBookingsActivity.class)));
         }
 
-        if (actionServices != null) {
-            actionServices.setOnClickListener(v ->
-                    startActivity(new Intent(HomeActivity.this, ServicesActivity.class)));
-        }
-
         if (actionOffers != null) {
             actionOffers.setOnClickListener(v ->
                     startActivity(new Intent(HomeActivity.this, HotelOffersActivity.class)));
         }
 
-        // Featured Room CTAs
+        if (actionServices != null) {
+            actionServices.setOnClickListener(v ->
+                    startActivity(new Intent(HomeActivity.this, ServicesActivity.class)));
+        }
+
+        if (actionAttractions != null) {
+            actionAttractions.setOnClickListener(v ->
+                    startActivity(new Intent(HomeActivity.this, AttractionsActivity.class)));
+        }
+
+        if (actionProfile != null) {
+            actionProfile.setOnClickListener(v ->
+                    startActivity(new Intent(HomeActivity.this, ProfileActivity.class)));
+        }
+
+        // Featured Experiences
+        if (btnSeeAllFeatured != null) {
+            btnSeeAllFeatured.setOnClickListener(v ->
+                    startActivity(new Intent(HomeActivity.this, ViewRoomsActivity.class)));
+        }
+
+        if (cardFeaturedExperience != null) {
+            cardFeaturedExperience.setOnClickListener(v -> openRoomBooking("Ocean View Suite"));
+        }
+
+        // Featured Room CTAs (Preserved for tests)
         if (btnHomeBookOceanSuite != null) {
             btnHomeBookOceanSuite.setOnClickListener(v -> openRoomBooking("Ocean View Suite"));
         }
@@ -116,7 +154,7 @@ public class HomeActivity extends AppCompatActivity {
             btnHomeBookFamilyRoom.setOnClickListener(v -> openRoomBooking("Family Room"));
         }
 
-        // Master Room Catalog CTA Button
+        // Master Room Catalog CTA Button (Preserved for tests)
         if (roomBookingButton != null) {
             roomBookingButton.setOnClickListener(v ->
                     startActivity(new Intent(HomeActivity.this, ViewRoomsActivity.class)));

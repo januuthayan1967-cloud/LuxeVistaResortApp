@@ -5,9 +5,40 @@
     android:id="@+id/attractionsRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/attractions_background"
+    android:background="@color/resort_ivory_bg"
     android:orientation="vertical">
 
+    <!-- Top Navy Header Bar -->
+    <RelativeLayout
+        android:id="@+id/attractionsHeaderBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/resort_navy_primary"
+        android:paddingHorizontal="8dp">
+
+        <ImageButton
+            android:id="@+id/btnBackAttractions"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Navigate Back"
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:letterSpacing="0.04"
+            android:text="Attractions"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Scrollable Content -->
     <ScrollView
         android:id="@+id/attractionsScrollView"
         android:layout_width="match_parent"
@@ -18,250 +49,327 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="24dp">
+            android:orientation="vertical">
 
-            <!-- Top Header Row -->
-            <LinearLayout
-                android:id="@+id/attractionsHeaderBar"
+            <!-- Hero Destination Banner -->
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
-
-                <ImageButton
-                    android:id="@+id/btnBackAttractions"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Navigate Back"
-                    android:src="@drawable/ic_back_arrow"
-                    app:tint="@color/white" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.15"
-                        android:text="RESORT ATTRACTIONS"
-                        android:textColor="@color/resort_gold_accent"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unforgettable Experiences"
-                        android:textColor="@color/white"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Beach Tours Card -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/card_luxury"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="220dp">
 
                 <ImageView
+                    android:id="@+id/attractionsHeroImage"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/image_rounded"
-                    android:contentDescription="Beach Tours"
+                    android:layout_height="match_parent"
+                    android:contentDescription="LuxeVista Scenic Destinations"
                     android:scaleType="centerCrop"
                     android:src="@drawable/beach_tours" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="Guided Beach Tours"
-                    android:textColor="@color/text_primary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:text="Explore pristine coastal paths and secret coves with our expert local guides"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/bookBeachTours"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/primary_button_bg"
-                    android:text="Book Beach Tour"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/hero_scrim_bottom" />
 
-            <!-- Water Sports Card -->
+                <!-- Text Overlay -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.02"
+                        android:text="Explore Breathtaking\nDestinations"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Discover natural beauty, cultural heritage and unforgettable experiences around LuxeVista."
+                        android:textColor="#E2E8F0"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- 4 Attraction Cards -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/card_luxury"
-                android:elevation="4dp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingHorizontal="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="24dp">
 
-                <ImageView
+                <!-- 1. Private Island Excursion -->
+                <LinearLayout
+                    android:id="@+id/cardPrivateIsland"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:background="@drawable/image_rounded"
-                    android:contentDescription="Water Sports"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/water_sports" />
+                    android:background="@drawable/card_attraction_item"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                <TextView
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="86dp"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="Private Island Excursion"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/beach_tours" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Private Island Excursion"
+                            android:textColor="@color/text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Enjoy a serene boat trip to nearby islands with pristine beaches."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Open Details"
+                        android:src="@drawable/ic_chevron_right_gold" />
+                </LinearLayout>
+
+                <!-- 2. Sunset Viewing Point -->
+                <LinearLayout
+                    android:id="@+id/cardSunsetViewing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/card_attraction_item"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="86dp"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="Sunset Viewing Point"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/home_background" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sunset Viewing Point"
+                            android:textColor="@color/text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Witness breathtaking sunsets from our exclusive viewpoint."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Open Details"
+                        android:src="@drawable/ic_chevron_right_gold" />
+                </LinearLayout>
+
+                <!-- 3. Nature Trails -->
+                <LinearLayout
+                    android:id="@+id/cardNatureTrails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/card_attraction_item"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="86dp"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="Nature Trails"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/attractions_background" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nature Trails"
+                            android:textColor="@color/text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Explore lush trails and tropical landscapes around the resort."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Open Details"
+                        android:src="@drawable/ic_chevron_right_gold" />
+                </LinearLayout>
+
+                <!-- 4. Water Sports -->
+                <LinearLayout
+                    android:id="@+id/cardWaterSports"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/card_attraction_item"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="86dp"
+                        android:layout_height="64dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="Water Sports"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/water_sports" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Water Sports"
+                            android:textColor="@color/text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Enjoy exciting activities in the crystal clear waters."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Open Details"
+                        android:src="@drawable/ic_chevron_right_gold" />
+                </LinearLayout>
+
+                <!-- Hidden legacy buttons for compatibility -->
+                <Button
+                    android:id="@+id/bookBeachTours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="Thrilling Water Sports"
-                    android:textColor="@color/text_primary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:text="Jet skiing, windsurfing, scuba diving and parasailing in crystal turquoise waters"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/bookWaterSports"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/primary_button_bg"
-                    android:text="Book Water Sports"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Fine Dining Card -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/card_luxury"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/image_rounded"
-                    android:contentDescription="Fine Dining"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/fine_dining" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="Michelin-Star Fine Dining"
-                    android:textColor="@color/text_primary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:text="Culinary masterpieces prepared by international chefs overlooking the sunset"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/bookFineDining"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/primary_button_bg"
-                    android:text="Reserve A Table"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Luxury Bottom Navigation Bar -->
-    <LinearLayout
-        android:id="@+id/bottomNavigationContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/resort_navy_primary"
-        android:elevation="12dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/navHome"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Home Dashboard"
-                android:src="@drawable/ic_home"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/navServices"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Resort Services"
-                android:src="@drawable/ic_services"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/navAttractions"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Attractions"
-                android:src="@drawable/ic_attractions"
-                app:tint="@color/resort_gold_accent" />
-
-            <ImageButton
-                android:id="@+id/navProfile"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Guest Profile"
-                android:src="@drawable/ic_profile"
-                app:tint="@color/white" />
-        </LinearLayout>
-    </LinearLayout>
+    <!-- Bottom Navigation Bar -->
+    <include layout="@layout/layout_bottom_navigation" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.luxevistaresortapp;
 
 import org.junit.Test;
+import java.time.LocalDate;
 import static org.junit.Assert.*;
 
 public class EdgeToEdgeAndServicesTest {
@@ -35,5 +36,29 @@ public class EdgeToEdgeAndServicesTest {
             assertNotNull(service);
             assertFalse(service.trim().isEmpty());
         }
+    }
+
+    @Test
+    public void testEnglishMonthDateFormatParsing() {
+        // Test "d MMM uuuu" format introduced for luxury UI
+        LocalDate date = SecurityUtils.parseLocalDate("10 Oct 2026");
+        assertNotNull(date);
+        assertEquals(2026, date.getYear());
+        assertEquals(10, date.getMonthValue());
+        assertEquals(10, date.getDayOfMonth());
+
+        // Test standard format
+        LocalDate standardDate = SecurityUtils.parseLocalDate("10/10/2026");
+        assertNotNull(standardDate);
+        assertEquals(2026, standardDate.getYear());
+        assertEquals(10, standardDate.getMonthValue());
+        assertEquals(10, standardDate.getDayOfMonth());
+
+        // Test isDateNotPast with future dates
+        assertTrue(SecurityUtils.isDateNotPast("10 Oct 2026"));
+        assertTrue(SecurityUtils.isDateNotPast("15 Dec 2028"));
+
+        // Test past date
+        assertFalse(SecurityUtils.isDateNotPast("01 Jan 2020"));
     }
 }

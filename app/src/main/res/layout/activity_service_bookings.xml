@@ -1,40 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/serviceBookingsRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FAFAFA"
-    android:padding="16dp">
+    android:background="@drawable/home_background">
 
-    <TextView
-        android:id="@+id/serviceBookingsHeader"
-        android:layout_width="wrap_content"
+    <!-- Top App Bar / Luxury Header -->
+    <LinearLayout
+        android:id="@+id/serviceBookingsHeaderBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:text="My Service Bookings"
-        android:textColor="#C5A059"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp"
+        android:background="#D90D1B2A">
 
+        <ImageView
+            android:id="@+id/btnBackServiceHistory"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle_glass"
+            android:padding="8dp"
+            android:src="@drawable/ic_back_arrow"
+            android:contentDescription="Back"
+            android:layout_marginEnd="12dp"
+            app:tint="@color/resort_gold_accent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/serviceBookingsHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service Reservations"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/resort_gold_accent"
+                android:letterSpacing="0.02"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manage your booked wellness &amp; resort experiences"
+                android:textSize="12sp"
+                android:textColor="#E0E6ED"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Empty State View -->
+    <LinearLayout
+        android:id="@+id/emptyStateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivEmptyServiceLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/luxevista_logo"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Resort Logo"/>
+
+        <TextView
+            android:id="@+id/emptyServiceBookingsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Service Reservations Found"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You haven't reserved any wellness, dining, or cabana experiences on this device yet. Explore our luxury services and reserve your retreat."
+            android:textSize="13sp"
+            android:textColor="#E0E6ED"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnEmptyExploreServices"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Explore Resort Services"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/primary_button_bg"
+            android:paddingHorizontal="24dp"/>
+    </LinearLayout>
+
+    <!-- Service Bookings List -->
     <ListView
         android:id="@+id/serviceBookingsListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:divider="@android:color/transparent"
-        android:dividerHeight="8dp" />
-
-    <TextView
-        android:id="@+id/emptyServiceBookingsText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="32dp"
-        android:text="No service bookings found."
-        android:textColor="#718096"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        android:dividerHeight="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"/>
 
 </LinearLayout>

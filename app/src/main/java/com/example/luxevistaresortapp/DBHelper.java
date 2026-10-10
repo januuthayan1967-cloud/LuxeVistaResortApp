@@ -576,6 +576,34 @@ public class DBHelper extends SQLiteOpenHelper {
         return getAllServiceBookings();
     }
 
+    /**
+     * Retrieves typed list of ServiceBookingModel objects for the user, safely managing cursor lifecycle.
+     */
+    public List<ServiceBookingModel> getServiceBookingListForUser(String userEmail) {
+        List<ServiceBookingModel> list = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            cursor = getServiceBookingsForUser(userEmail);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    long id = cursor.getLong(0);
+                    String serviceName = cursor.getString(1);
+                    String customerName = cursor.getString(2);
+                    String date = cursor.getString(3);
+                    String time = cursor.getString(4);
+                    String email = cursor.getString(5);
+
+                    list.add(new ServiceBookingModel(id, serviceName, customerName, date, time, email));
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return list;
+    }
+
     // Fetch all Service Bookings (aliasing id AS _id for CursorAdapter)
     public Cursor getAllServiceBookings() {
         SQLiteDatabase db = this.getReadableDatabase();

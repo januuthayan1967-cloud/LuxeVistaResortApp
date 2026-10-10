@@ -291,19 +291,30 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Action 1: Share Reservation Summary -->
+        <!-- Action 1: Share PDF Reservation Voucher (Premium Option) -->
         <Button
             android:id="@+id/btnShareVoucher"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="Share Reservation Summary"
+            android:text="Share PDF Voucher"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15sp"
             android:background="@drawable/button_outline_gold"
+            android:layout_marginBottom="6dp"/>
+
+        <!-- Action 2: Share Plain Text Summary (Preserved Option) -->
+        <Button
+            android:id="@+id/btnShareText"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="Share as Text Summary"
+            android:textColor="#E0E6ED"
+            android:textSize="13sp"
+            android:background="@android:color/transparent"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Action 2: View My Reservations -->
+        <!-- Action 3: View My Reservations -->
         <Button
             android:id="@+id/btnViewBookings"
             android:layout_width="match_parent"
@@ -316,7 +327,7 @@
             android:elevation="3dp"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Action 3: Return to Home -->
+        <!-- Action 4: Return to Home -->
         <Button
             android:id="@+id/btnReturnHome"
             android:layout_width="match_parent"

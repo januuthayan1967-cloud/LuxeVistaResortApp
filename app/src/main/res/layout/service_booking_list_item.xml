@@ -1,55 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="14dp"
+    android:padding="16dp"
     android:layout_marginHorizontal="12dp"
     android:layout_marginVertical="6dp"
-    android:background="@drawable/item_background"
+    android:background="@drawable/card_luxury_light"
     android:elevation="2dp">
 
+    <!-- Top Row: Service Appointment Reference Badge & Status Badge -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tvServiceItemReference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/voucher_ref_badge"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="SERVICE #1"
+            android:textColor="@color/resort_gold_accent"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:letterSpacing="0.04"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvServiceItemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/status_badge_reserved"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="SAVED LOCALLY"
+            android:textColor="@color/resort_success"
+            android:textStyle="bold"
+            android:textSize="11sp"/>
+    </LinearLayout>
+
+    <!-- Service Title -->
     <TextView
         android:id="@+id/serviceNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Service Name"
-        android:textSize="18sp"
+        android:text="Spa Treatments"
         android:textStyle="bold"
-        android:textColor="#1A2530"
-        android:layout_marginBottom="6dp" />
+        android:textSize="16sp"
+        android:textColor="@color/text_primary"
+        android:layout_marginBottom="6dp"/>
 
-    <TextView
-        android:id="@+id/customerNameTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Customer Name"
-        android:textSize="14sp"
-        android:textColor="#4A5568"
-        android:layout_marginBottom="4dp" />
-
+    <!-- Reserved Guest Name -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reserved for: "
+            android:textSize="13sp"
+            android:textColor="@color/text_muted"/>
+
+        <TextView
+            android:id="@+id/customerNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guest Name"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+
+    <!-- Date & Time Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Date"
+            android:text="Date: 12 Oct 2026"
             android:textSize="13sp"
-            android:textColor="#718096" />
+            android:textColor="@color/text_secondary"/>
 
         <TextView
             android:id="@+id/timeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
+            android:text="Time: 12:00 PM"
             android:textSize="13sp"
             android:textStyle="bold"
-            android:textColor="#C5A059" />
+            android:textColor="@color/resort_gold_accent"/>
     </LinearLayout>
+
+    <!-- Subtle Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EDE8E1"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Local Reservation Notice -->
+    <TextView
+        android:id="@+id/tvServiceItemNotice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resort Experience Appointment • Saved Locally on Device"
+        android:textSize="11sp"
+        android:textColor="@color/text_muted"/>
 
 </LinearLayout>

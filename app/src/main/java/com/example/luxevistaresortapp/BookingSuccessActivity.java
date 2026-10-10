@@ -25,6 +25,7 @@ public class BookingSuccessActivity extends AppCompatActivity {
     private TextView tvVoucherStatus;
 
     private Button btnShareVoucher;
+    private Button btnShareText;
     private Button btnViewBookings;
     private Button btnReturnHome;
 
@@ -60,6 +61,7 @@ public class BookingSuccessActivity extends AppCompatActivity {
         tvVoucherStatus = findViewById(R.id.tvVoucherStatus);
 
         btnShareVoucher = findViewById(R.id.btnShareVoucher);
+        btnShareText = findViewById(R.id.btnShareText);
         btnViewBookings = findViewById(R.id.btnViewBookings);
         btnReturnHome = findViewById(R.id.btnReturnHome);
     }
@@ -121,7 +123,11 @@ public class BookingSuccessActivity extends AppCompatActivity {
     }
 
     private void setupActionListeners() {
-        btnShareVoucher.setOnClickListener(v -> shareReservationSummary());
+        btnShareVoucher.setOnClickListener(v -> shareReservationPdf());
+
+        if (btnShareText != null) {
+            btnShareText.setOnClickListener(v -> shareReservationSummary());
+        }
 
         btnViewBookings.setOnClickListener(v -> {
             Intent intent = new Intent(BookingSuccessActivity.this, ViewBookingsActivity.class);
@@ -130,6 +136,11 @@ public class BookingSuccessActivity extends AppCompatActivity {
         });
 
         btnReturnHome.setOnClickListener(v -> navigateToHome());
+    }
+
+    private void shareReservationPdf() {
+        if (currentBooking == null) return;
+        PdfVoucherGenerator.shareVerifiedBookingPdf(BookingSuccessActivity.this, currentBooking.getId());
     }
 
     private void shareReservationSummary() {
